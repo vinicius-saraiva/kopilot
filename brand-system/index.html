@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopilot Brand System — Athletic</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23FF5F1F'/%3E%3Cpath d='M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z' fill='white'/%3E%3Crect x='10' y='36' width='12' height='2' fill='white'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Primary */
+            --blaze: #FF5F1F;
+            --blaze-dark: #E04A0F;
+            --blaze-light: #FF8A50;
+            
+            /* Neutrals */
+            --asphalt: #1A1A1A;
+            --asphalt-light: #2A2A2A;
+            --concrete: #3D3D3D;
+            --gravel: #6B6B6B;
+            --dust: #999999;
+            --clean: #FFFFFF;
+            --offwhite: #F7F7F7;
+            
+            /* Semantic */
+            --go: #00C853;
+            --caution: #FFB300;
+            --stop: #FF3B30;
+            
+            /* Typography */
+            --font: 'Outfit', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--clean);
+            color: var(--asphalt);
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--asphalt);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo svg {
+            height: 24px;
+            width: auto;
+        }
+
+        .nav-logo span {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--dust);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dust);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blaze);
+        }
+
+        /* Sections */
+        section {
+            padding: 8rem 6rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--blaze);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 3px;
+            background: var(--blaze);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--gravel);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* Hero */
+        #hero {
+            min-height: 100vh;
+            background: var(--asphalt);
+            color: var(--clean);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 60%;
+            height: 160%;
+            background: linear-gradient(135deg, var(--blaze) 0%, transparent 60%);
+            opacity: 0.12;
+            transform: rotate(-12deg);
+        }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--blaze);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tagline {
+            font-size: 7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-tagline span {
+            color: var(--blaze);
+        }
+
+        .hero-sub {
+            font-size: 1.375rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            max-width: 520px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        .hero-logo svg {
+            width: 320px;
+            height: auto;
+        }
+
+        .brand-version {
+            position: absolute;
+            bottom: 3rem;
+            right: 6rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gravel);
+        }
+
+        /* Story Section */
+        #story {
+            background: var(--offwhite);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-top: 4rem;
+        }
+
+        .story-block h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .story-block h3::before {
+            content: '';
+            width: 16px;
+            height: 3px;
+            background: var(--blaze);
+        }
+
+        .story-block p {
+            font-size: 1rem;
+            color: var(--gravel);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-block .highlight {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--asphalt);
+            line-height: 1.4;
+            padding-left: 1.5rem;
+            border-left: 4px solid var(--blaze);
+            margin: 2rem 0;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            background: var(--clean);
+            padding: 1.75rem;
+            border-left: 4px solid var(--blaze);
+        }
+
+        .value-card h4 {
+            font-size: 0.9375rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-card p {
+            font-size: 0.875rem;
+            color: var(--gravel);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Logo Section */
+        #logo {
+            background: var(--clean);
+        }
+
+        .logo-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .logo-variant {
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .logo-variant.on-dark {
+            background: var(--asphalt);
+        }
+
+        .logo-variant.on-light {
+            background: var(--offwhite);
+        }
+
+        .logo-variant.on-blaze {
+            background: var(--blaze);
+        }
+
+        .logo-variant svg {
+            width: 200px;
+            height: auto;
+        }
+
+        .logo-variant span {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .logo-variant.on-dark span {
+            color: var(--dust);
+        }
+
+        .logo-variant.on-blaze span {
+            color: var(--clean);
+        }
+
+        .logo-variant.on-light span {
+            color: var(--gravel);
+        }
+
+        .logo-variant .logo-downloads {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .logo-variant .logo-dl {
+            font-size: 0.5625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            padding: 0.3rem 0.6rem;
+            transition: all 0.2s;
+        }
+
+        .logo-variant.on-dark .logo-dl {
+            color: var(--dust);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .logo-variant.on-dark .logo-dl:hover {
+            background: rgba(255,255,255,0.15);
+            color: var(--clean);
+        }
+
+        .logo-variant.on-blaze .logo-dl {
+            color: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .logo-variant.on-blaze .logo-dl:hover {
+            background: rgba(255,255,255,0.25);
+            color: var(--clean);
+        }
+
+        .logo-variant.on-light .logo-dl {
+            color: var(--gravel);
+            background: rgba(0,0,0,0.06);
+        }
+
+        .logo-variant.on-light .logo-dl:hover {
+            background: rgba(0,0,0,0.12);
+            color: var(--asphalt);
+        }
+
+        .logo-rules {
+            background: var(--offwhite);
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
+        .logo-rules h3 {
+            font-size: 1.125rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .rule-item {
+            text-align: center;
+        }
+
+        .rule-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: var(--clean);
+            border: 2px dashed var(--dust);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .rule-item h4 {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-item p {
+            font-size: 0.8125rem;
+            color: var(--gravel);
+        }
+
+        /* Colors Section */
+        #colors {
+            background: var(--asphalt);
+            color: var(--clean);
+        }
+
+        #colors .section-title {
+            color: var(--clean);
+        }
+
+        .color-category {
+            margin-bottom: 4rem;
+        }
+
+        .color-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .color-category h3 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dust);
+            margin-bottom: 1.5rem;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .color-swatch {
+            background: var(--asphalt-light);
+            overflow: hidden;
+        }
+
+        .swatch-preview {
+            height: 100px;
+        }
+
+        .swatch-info {
+            padding: 1.25rem;
+        }
+
+        .swatch-name {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .swatch-values {
+            font-size: 0.75rem;
+            color: var(--dust);
+            font-family: monospace;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .swatch-values .copy-val {
+            cursor: pointer;
+            padding: 0.15rem 0.35rem;
+            border-radius: 2px;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .swatch-values .copy-val:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--clean);
+        }
+
+        .swatch-values .copy-val.copied {
+            color: var(--go);
+        }
+
+        .swatch-usage {
+            font-size: 0.75rem;
+            color: var(--gravel);
+            margin-top: 0.5rem;
+        }
+
+        /* Typography Section */
+        #typography {
+            background: var(--offwhite);
+        }
+
+        .type-hero {
+            background: var(--asphalt);
+            color: var(--clean);
+            padding: 4rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .type-hero h3 {
+            font-size: 6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .type-hero p {
+            font-size: 1.125rem;
+            color: var(--dust);
+        }
+
+        .type-weights {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .weight-sample {
+            background: var(--clean);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .weight-sample .letter {
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            color: var(--asphalt);
+        }
+
+        .weight-sample .name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gravel);
+        }
+
+        .weight-sample .value {
+            font-size: 0.6875rem;
+            color: var(--dust);
+            margin-top: 0.25rem;
+        }
+
+        .type-scale {
+            background: var(--clean);
+            padding: 3rem;
+        }
+
+        .type-scale h3 {
+            font-size: 1.125rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .scale-row {
+            display: flex;
+            align-items: baseline;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--offwhite);
+        }
+
+        .scale-row:last-child {
+            border-bottom: none;
+        }
+
+        .scale-label {
+            width: 120px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gravel);
+            flex-shrink: 0;
+        }
+
+        .scale-sample {
+            flex: 1;
+        }
+
+        .scale-sample.display-1 {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .scale-sample.display-2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            line-height: 1;
+        }
+
+        .scale-sample.heading-1 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .scale-sample.heading-2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .scale-sample.heading-3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .scale-sample.body {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .scale-sample.body-small {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--gravel);
+        }
+
+        .scale-sample.label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gravel);
+        }
+
+        /* Voice Section */
+        #voice {
+            background: var(--blaze);
+            color: var(--clean);
+        }
+
+        #voice .section-label {
+            color: var(--clean);
+        }
+
+        #voice .section-label::before {
+            background: var(--clean);
+        }
+
+        #voice .section-title {
+            color: var(--clean);
+        }
+
+        .voice-principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .voice-card {
+            background: rgba(0,0,0,0.15);
+            padding: 2rem;
+        }
+
+        .voice-card h3 {
+            font-size: 1.125rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .voice-card p {
+            font-size: 0.9375rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        .voice-examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .voice-example {
+            background: rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .voice-example-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .voice-example-label.do::before {
+            content: '✓';
+            width: 20px;
+            height: 20px;
+            background: var(--go);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.625rem;
+        }
+
+        .voice-example-label.dont::before {
+            content: '✗';
+            width: 20px;
+            height: 20px;
+            background: var(--stop);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.625rem;
+        }
+
+        .voice-example p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+
+        /* App Section */
+        #app {
+            background: var(--offwhite);
+        }
+
+        .app-showcase {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 620px;
+            background: var(--asphalt);
+            border-radius: 44px;
+            padding: 12px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--clean);
+            border-radius: 34px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            background: var(--asphalt);
+            padding: 3.5rem 1.5rem 1.5rem;
+            color: var(--clean);
+        }
+
+        .app-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .app-header small {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dust);
+        }
+
+        .app-header h4 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .health-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 200, 83, 0.15);
+            padding: 0.375rem 0.75rem;
+            border-radius: 100px;
+        }
+
+        .health-score .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--go);
+            border-radius: 50%;
+        }
+
+        .health-score span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--go);
+        }
+
+        .app-content {
+            flex: 1;
+            padding: 1.25rem;
+            overflow: hidden;
+        }
+
+        .app-section-label {
+            font-size: 0.5625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gravel);
+            margin-bottom: 0.75rem;
+        }
+
+        .app-card {
+            background: var(--offwhite);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid transparent;
+        }
+
+        .app-card.warning {
+            border-left-color: var(--blaze);
+            background: linear-gradient(90deg, rgba(255, 95, 31, 0.08) 0%, var(--offwhite) 100%);
+        }
+
+        .app-card.critical {
+            border-left-color: var(--stop);
+            background: linear-gradient(90deg, rgba(255, 59, 48, 0.08) 0%, var(--offwhite) 100%);
+        }
+
+        .app-card.success {
+            border-left-color: var(--go);
+        }
+
+        .app-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.25rem;
+        }
+
+        .app-card-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+        }
+
+        .app-card-badge {
+            font-size: 0.5625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.5rem;
+            border-radius: 2px;
+        }
+
+        .app-card-badge.warning {
+            background: var(--blaze);
+            color: var(--clean);
+        }
+
+        .app-card-badge.critical {
+            background: var(--stop);
+            color: var(--clean);
+        }
+
+        .app-card-sub {
+            font-size: 0.8125rem;
+            color: var(--gravel);
+        }
+
+        .app-card-sub strong {
+            color: var(--blaze);
+            font-weight: 700;
+        }
+
+        .app-card-sub strong.critical {
+            color: var(--stop);
+        }
+
+        .app-card-sub strong.success {
+            color: var(--go);
+        }
+
+        .app-features {
+            max-width: 500px;
+        }
+
+        .app-features h3 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--asphalt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.25rem;
+        }
+
+        .feature-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-text p {
+            font-size: 0.9375rem;
+            color: var(--gravel);
+        }
+
+        /* Icons Section */
+        #icons {
+            background: var(--asphalt);
+            color: var(--clean);
+            text-align: center;
+        }
+
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .app-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--asphalt);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .app-icon.small {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+        }
+
+        .app-icon.medium {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
+        }
+
+        .app-icon.large {
+            width: 140px;
+            height: 140px;
+            border-radius: 32px;
+        }
+
+        .app-icon svg {
+            width: 55%;
+            height: auto;
+        }
+
+        .icon-variants {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .icon-variant {
+            background: var(--asphalt-light);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-variant .icon-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-variant .icon-preview svg {
+            width: 50%;
+            height: auto;
+        }
+
+        .icon-variant span {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dust);
+        }
+
+        .icon-variant .icon-downloads {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .icon-variant .icon-dl {
+            font-size: 0.5625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            color: var(--dust);
+            padding: 0.3rem 0.6rem;
+            background: rgba(255,255,255,0.08);
+            transition: all 0.2s;
+        }
+
+        .icon-variant .icon-dl:hover {
+            background: rgba(255,255,255,0.15);
+            color: var(--clean);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--asphalt);
+            color: var(--clean);
+            padding: 3rem 6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 4px solid var(--blaze);
+        }
+
+        footer svg {
+            height: 28px;
+            width: auto;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--gravel);
+        }
+
+        /* Utility */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section > * {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0V28H6V18L16 28H24L10 14L24 0H16L6 12V0H0Z" fill="white"/>
+                <rect x="0" y="30" width="12" height="2" fill="#FF5F1F"/>
+            </svg>
+            <span>Brand System</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#story">Story</a></li>
+            <li><a href="#logo">Logo</a></li>
+            <li><a href="#colors">Colors</a></li>
+            <li><a href="#typography">Type</a></li>
+            <li><a href="#voice">Voice</a></li>
+            <li><a href="#app">App</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-content">
+            <p class="section-label">Kopilot Brand System v1.0</p>
+            <h1 class="hero-tagline">Own<br>Your <span>Drive.</span></h1>
+            <p class="hero-sub">Take control of your vehicle's performance. Track every service. Crush every maintenance goal. Your car's fitness tracker.</p>
+            <div class="hero-logo">
+                <svg viewBox="0 0 243 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 5V50H9V34L24 50H36L15 27L36 5H24L9 24V5H0Z" fill="white"/>
+                    <path d="M47 20C37 20 31 27 31 35C31 43 37 50 47 50C57 50 63 43 63 35C63 27 57 20 47 20ZM47 40C43 40 41 38 41 35C41 32 43 30 47 30C51 30 53 32 53 35C53 38 51 40 47 40Z" fill="white"/>
+                    <path d="M71 20V58H85V46C88 48 92 50 97 50C108 50 115 43 115 35C115 27 108 20 97 20C92 20 88 22 85 24V20H71ZM93 40C89 40 85 37 85 35C85 33 89 30 93 30C97 30 101 33 101 35C101 37 97 40 93 40Z" fill="white"/>
+                    <path d="M125 8C120 8 117 11 117 15C117 19 120 22 125 22C130 22 133 19 133 15C133 11 130 8 125 8ZM119 20V50H131V20H119Z" fill="white"/>
+                    <path d="M141 5V50H155V5H141Z" fill="white"/>
+                    <path d="M173 20C163 20 157 27 157 35C157 43 163 50 173 50C183 50 189 43 189 35C189 27 183 20 173 20ZM173 40C169 40 167 38 167 35C167 32 169 30 173 30C177 30 179 32 179 35C179 38 177 40 173 40Z" fill="white"/>
+                    <path d="M205 8V20H195V30H205V42C205 48 211 50 221 50H233V42H223C219 42 217 40 217 37V30H233V20H217V8H205Z" fill="white"/>
+                    <rect x="0" y="52" width="18" height="3" fill="#FF5F1F"/>
+                </svg>
+            </div>
+        </div>
+        <span class="brand-version">February 2026</span>
+    </section>
+
+    <!-- Brand Story -->
+    <section id="story">
+        <p class="section-label">Brand Story</p>
+        <h2 class="section-title">The Copilot<br>That Keeps Score</h2>
+        <p class="section-subtitle">For people who want to stay on top of their car—without becoming a car person.</p>
+
+        <div class="story-grid">
+            <div class="story-block">
+                <h3>The Problem</h3>
+                <p>Most people aren't car enthusiasts. They don't know when maintenance is due, what that dashboard light means, or why their car makes that weird noise. Things slip. Cars break down. Repairs cost more than they should.</p>
+                
+                <h3>The Insight</h3>
+                <p>Maintenance isn't the problem—forgetting is. People already track their runs, their sleep, their spending. They just need the same clarity for their car.</p>
+                
+                <p class="highlight">"Kopilot turns car maintenance from a forgotten chore into visible progress you can track and own."</p>
+
+                <h3>The Name</h3>
+                <p><strong>Kopilot</strong> comes from rally racing, where the co-pilot navigates hazards and keeps the driver informed. The "K" makes it distinctive, modern, and globally recognizable. It's your car's co-pilot—always watching, always reminding, always ready.</p>
+            </div>
+            <div>
+                <h3 class="story-block"><span></span>Brand Values</h3>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <h4>Proactive</h4>
+                        <p>We tell you before things break. Reminders that actually matter, at the right time.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Clear</h4>
+                        <p>No jargon. No mystery codes. Just plain language and obvious next steps.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Motivating</h4>
+                        <p>Every oil change is progress. Every service is a streak. Make maintenance feel like winning.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Complete</h4>
+                        <p>Your car's full history in one place. Good for you now, great for resale later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Section -->
+    <section id="logo">
+        <p class="section-label">Logo System</p>
+        <h2 class="section-title">The Mark</h2>
+        <p class="section-subtitle">Bold, condensed, unmistakable. The signature accent bar anchors the brand and signals forward motion.</p>
+
+        <div class="logo-showcase">
+            <div class="logo-variant on-dark">
+                <svg viewBox="0 0 243 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 5V50H9V34L24 50H36L15 27L36 5H24L9 24V5H0Z" fill="white"/>
+                    <path d="M47 20C37 20 31 27 31 35C31 43 37 50 47 50C57 50 63 43 63 35C63 27 57 20 47 20ZM47 40C43 40 41 38 41 35C41 32 43 30 47 30C51 30 53 32 53 35C53 38 51 40 47 40Z" fill="white"/>
+                    <path d="M71 20V58H85V46C88 48 92 50 97 50C108 50 115 43 115 35C115 27 108 20 97 20C92 20 88 22 85 24V20H71ZM93 40C89 40 85 37 85 35C85 33 89 30 93 30C97 30 101 33 101 35C101 37 97 40 93 40Z" fill="white"/>
+                    <path d="M125 8C120 8 117 11 117 15C117 19 120 22 125 22C130 22 133 19 133 15C133 11 130 8 125 8ZM119 20V50H131V20H119Z" fill="white"/>
+                    <path d="M141 5V50H155V5H141Z" fill="white"/>
+                    <path d="M173 20C163 20 157 27 157 35C157 43 163 50 173 50C183 50 189 43 189 35C189 27 183 20 173 20ZM173 40C169 40 167 38 167 35C167 32 169 30 173 30C177 30 179 32 179 35C179 38 177 40 173 40Z" fill="white"/>
+                    <path d="M205 8V20H195V30H205V42C205 48 211 50 221 50H233V42H223C219 42 217 40 217 37V30H233V20H217V8H205Z" fill="white"/>
+                    <rect x="0" y="52" width="18" height="3" fill="#FF5F1F"/>
+                </svg>
+                <span>Primary — On Dark</span>
+                <div class="logo-downloads">
+                    <a href="assets/kopilot-logo-white.svg" download class="logo-dl">SVG</a>
+                    <a href="assets/kopilot-logo-white.png" download class="logo-dl">PNG</a>
+                </div>
+            </div>
+            <div class="logo-variant on-light">
+                <svg viewBox="0 0 243 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 5V50H9V34L24 50H36L15 27L36 5H24L9 24V5H0Z" fill="#1A1A1A"/>
+                    <path d="M47 20C37 20 31 27 31 35C31 43 37 50 47 50C57 50 63 43 63 35C63 27 57 20 47 20ZM47 40C43 40 41 38 41 35C41 32 43 30 47 30C51 30 53 32 53 35C53 38 51 40 47 40Z" fill="#1A1A1A"/>
+                    <path d="M71 20V58H85V46C88 48 92 50 97 50C108 50 115 43 115 35C115 27 108 20 97 20C92 20 88 22 85 24V20H71ZM93 40C89 40 85 37 85 35C85 33 89 30 93 30C97 30 101 33 101 35C101 37 97 40 93 40Z" fill="#1A1A1A"/>
+                    <path d="M125 8C120 8 117 11 117 15C117 19 120 22 125 22C130 22 133 19 133 15C133 11 130 8 125 8ZM119 20V50H131V20H119Z" fill="#1A1A1A"/>
+                    <path d="M141 5V50H155V5H141Z" fill="#1A1A1A"/>
+                    <path d="M173 20C163 20 157 27 157 35C157 43 163 50 173 50C183 50 189 43 189 35C189 27 183 20 173 20ZM173 40C169 40 167 38 167 35C167 32 169 30 173 30C177 30 179 32 179 35C179 38 177 40 173 40Z" fill="#1A1A1A"/>
+                    <path d="M205 8V20H195V30H205V42C205 48 211 50 221 50H233V42H223C219 42 217 40 217 37V30H233V20H217V8H205Z" fill="#1A1A1A"/>
+                    <rect x="0" y="52" width="18" height="3" fill="#FF5F1F"/>
+                </svg>
+                <span>Primary — On Light</span>
+                <div class="logo-downloads">
+                    <a href="assets/kopilot-logo-black.svg" download class="logo-dl">SVG</a>
+                    <a href="assets/kopilot-logo-black.png" download class="logo-dl">PNG</a>
+                </div>
+            </div>
+            <div class="logo-variant on-blaze">
+                <svg viewBox="0 0 243 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 5V50H9V34L24 50H36L15 27L36 5H24L9 24V5H0Z" fill="white"/>
+                    <path d="M47 20C37 20 31 27 31 35C31 43 37 50 47 50C57 50 63 43 63 35C63 27 57 20 47 20ZM47 40C43 40 41 38 41 35C41 32 43 30 47 30C51 30 53 32 53 35C53 38 51 40 47 40Z" fill="white"/>
+                    <path d="M71 20V58H85V46C88 48 92 50 97 50C108 50 115 43 115 35C115 27 108 20 97 20C92 20 88 22 85 24V20H71ZM93 40C89 40 85 37 85 35C85 33 89 30 93 30C97 30 101 33 101 35C101 37 97 40 93 40Z" fill="white"/>
+                    <path d="M125 8C120 8 117 11 117 15C117 19 120 22 125 22C130 22 133 19 133 15C133 11 130 8 125 8ZM119 20V50H131V20H119Z" fill="white"/>
+                    <path d="M141 5V50H155V5H141Z" fill="white"/>
+                    <path d="M173 20C163 20 157 27 157 35C157 43 163 50 173 50C183 50 189 43 189 35C189 27 183 20 173 20ZM173 40C169 40 167 38 167 35C167 32 169 30 173 30C177 30 179 32 179 35C179 38 177 40 173 40Z" fill="white"/>
+                    <path d="M205 8V20H195V30H205V42C205 48 211 50 221 50H233V42H223C219 42 217 40 217 37V30H233V20H217V8H205Z" fill="white"/>
+                    <rect x="0" y="52" width="18" height="3" fill="white"/>
+                </svg>
+                <span>Knockout — On Blaze</span>
+                <div class="logo-downloads">
+                    <a href="assets/kopilot-logo-white.svg" download class="logo-dl">SVG</a>
+                    <a href="assets/kopilot-logo-white.png" download class="logo-dl">PNG</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="logo-rules">
+            <h3>Logo Anatomy</h3>
+            <div class="rules-grid">
+                <div class="rule-item">
+                    <div class="rule-icon">K</div>
+                    <h4>The K Mark</h4>
+                    <p>Bold, angular, forward-leaning. Works as standalone icon.</p>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-icon" style="font-weight: 900; text-transform: uppercase; font-size: 0.875rem;">ABC</div>
+                    <h4>Condensed Type</h4>
+                    <p>Outfit Black, tightly tracked. Athletic and confident.</p>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-icon" style="background: linear-gradient(90deg, #FF5F1F 60%, #F7F7F7 60%);">
+                    </div>
+                    <h4>Accent Bar</h4>
+                    <p>30% width of wordmark. Sits 2px below baseline.</p>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-icon">⬜</div>
+                    <h4>Clear Space</h4>
+                    <p>Minimum padding = height of the "K" on all sides.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Icons Section -->
+    <section id="icons">
+        <p class="section-label">App Icon</p>
+        <h2 class="section-title">The Mark,<br>At Any Size</h2>
+        <p class="section-subtitle" style="color: var(--dust);">The K mark with accent bar. Bold at 1024px, recognizable at 29px.</p>
+
+        <div class="icons-row">
+            <div class="app-icon small">
+                <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="white"/>
+                    <rect x="10" y="36" width="12" height="2" fill="#FF5F1F"/>
+                </svg>
+            </div>
+            <div class="app-icon large">
+                <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="white"/>
+                    <rect x="10" y="36" width="14" height="2.5" fill="#FF5F1F"/>
+                </svg>
+            </div>
+            <div class="app-icon medium">
+                <svg viewBox="0 0 40 40" fill="none">
+                    <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="white"/>
+                    <rect x="10" y="36" width="12" height="2" fill="#FF5F1F"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="icon-variants">
+            <div class="icon-variant">
+                <div class="icon-preview" style="background: #1A1A1A;">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="white"/>
+                        <rect x="10" y="36" width="12" height="2" fill="#FF5F1F"/>
+                    </svg>
+                </div>
+                <span>Default</span>
+                <div class="icon-downloads">
+                    <a href="assets/kopilot-icon-default.svg" download class="icon-dl">SVG</a>
+                    <a href="assets/kopilot-icon-default.png" download class="icon-dl">PNG</a>
+                </div>
+            </div>
+            <div class="icon-variant">
+                <div class="icon-preview" style="background: #FF5F1F;">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="white"/>
+                        <rect x="10" y="36" width="12" height="2" fill="white"/>
+                    </svg>
+                </div>
+                <span>Inverted</span>
+                <div class="icon-downloads">
+                    <a href="assets/kopilot-icon-inverted.svg" download class="icon-dl">SVG</a>
+                    <a href="assets/kopilot-icon-inverted.png" download class="icon-dl">PNG</a>
+                </div>
+            </div>
+            <div class="icon-variant">
+                <div class="icon-preview" style="background: linear-gradient(135deg, #FF5F1F 0%, #E04A0F 100%);">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="white"/>
+                    </svg>
+                </div>
+                <span>Gradient</span>
+                <div class="icon-downloads">
+                    <a href="assets/kopilot-icon-gradient.svg" download class="icon-dl">SVG</a>
+                    <a href="assets/kopilot-icon-gradient.png" download class="icon-dl">PNG</a>
+                </div>
+            </div>
+            <div class="icon-variant">
+                <div class="icon-preview" style="background: #FFFFFF; border: 1px solid #E5E5E5;">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <path d="M10 6V34H16V24L26 34H34L20 20L34 6H26L16 18V6H10Z" fill="#1A1A1A"/>
+                        <rect x="10" y="36" width="12" height="2" fill="#FF5F1F"/>
+                    </svg>
+                </div>
+                <span>Light Mode</span>
+                <div class="icon-downloads">
+                    <a href="assets/kopilot-icon-light.svg" download class="icon-dl">SVG</a>
+                    <a href="assets/kopilot-icon-light.png" download class="icon-dl">PNG</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Colors Section -->
+    <section id="colors">
+        <p class="section-label">Color Palette</p>
+        <h2 class="section-title">High Contrast.<br>Maximum Clarity.</h2>
+        <p class="section-subtitle" style="color: var(--dust);">A minimal palette that's bold on screen and in print. Every color earns its place.</p>
+
+        <div class="color-category" style="margin-top: 4rem;">
+            <h3>Primary</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #FF5F1F;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Blaze</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#FF5F1F</span><span class="copy-val" onclick="copyColor(this)">RGB 255, 95, 31</span></div>
+                        <div class="swatch-usage">Primary accent, CTAs, progress</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #E04A0F;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Blaze Dark</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#E04A0F</span><span class="copy-val" onclick="copyColor(this)">RGB 224, 74, 15</span></div>
+                        <div class="swatch-usage">Hover states, pressed buttons</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #FF8A50;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Blaze Light</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#FF8A50</span><span class="copy-val" onclick="copyColor(this)">RGB 255, 138, 80</span></div>
+                        <div class="swatch-usage">Highlights, gradients</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="color-category">
+            <h3>Neutrals</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #1A1A1A;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Asphalt</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#1A1A1A</span><span class="copy-val" onclick="copyColor(this)">RGB 26, 26, 26</span></div>
+                        <div class="swatch-usage">Primary background, text on light</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #3D3D3D;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Concrete</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#3D3D3D</span><span class="copy-val" onclick="copyColor(this)">RGB 61, 61, 61</span></div>
+                        <div class="swatch-usage">Secondary text, icons</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #6B6B6B;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Gravel</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#6B6B6B</span><span class="copy-val" onclick="copyColor(this)">RGB 107, 107, 107</span></div>
+                        <div class="swatch-usage">Muted text, placeholders</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #F7F7F7; border: 1px solid #E5E5E5;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Offwhite</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#F7F7F7</span><span class="copy-val" onclick="copyColor(this)">RGB 247, 247, 247</span></div>
+                        <div class="swatch-usage">Card backgrounds, sections</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #FFFFFF; border: 1px solid #E5E5E5;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Clean</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#FFFFFF</span><span class="copy-val" onclick="copyColor(this)">RGB 255, 255, 255</span></div>
+                        <div class="swatch-usage">Primary light background</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="color-category">
+            <h3>Semantic</h3>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #00C853;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Go</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#00C853</span><span class="copy-val" onclick="copyColor(this)">RGB 0, 200, 83</span></div>
+                        <div class="swatch-usage">Success, healthy, on track</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #FFB300;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Caution</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#FFB300</span><span class="copy-val" onclick="copyColor(this)">RGB 255, 179, 0</span></div>
+                        <div class="swatch-usage">Warnings, approaching due</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-preview" style="background: #FF3B30;"></div>
+                    <div class="swatch-info">
+                        <div class="swatch-name">Stop</div>
+                        <div class="swatch-values"><span class="copy-val" onclick="copyColor(this)">#FF3B30</span><span class="copy-val" onclick="copyColor(this)">RGB 255, 59, 48</span></div>
+                        <div class="swatch-usage">Critical, overdue, errors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section id="typography">
+        <p class="section-label">Typography</p>
+        <h2 class="section-title">One Family.<br>All Muscle.</h2>
+        <p class="section-subtitle">Outfit is geometric, versatile, and looks great at any weight. From hairline labels to black headlines. <a href="https://fonts.google.com/specimen/Outfit" target="_blank" style="color: var(--blaze); text-decoration: none; font-weight: 700;">Get Outfit on Google Fonts &rarr;</a></p>
+
+        <div class="type-hero">
+            <h3>OUTFIT</h3>
+            <p>The only typeface you need. Variable weight 100–900.</p>
+        </div>
+
+        <div class="type-weights">
+            <div class="weight-sample">
+                <div class="letter" style="font-weight: 300;">Aa</div>
+                <div class="name">Light</div>
+                <div class="value">300</div>
+            </div>
+            <div class="weight-sample">
+                <div class="letter" style="font-weight: 500;">Aa</div>
+                <div class="name">Medium</div>
+                <div class="value">500</div>
+            </div>
+            <div class="weight-sample">
+                <div class="letter" style="font-weight: 700;">Aa</div>
+                <div class="name">Bold</div>
+                <div class="value">700</div>
+            </div>
+            <div class="weight-sample">
+                <div class="letter" style="font-weight: 900;">Aa</div>
+                <div class="name">Black</div>
+                <div class="value">900</div>
+            </div>
+        </div>
+
+        <div class="type-scale">
+            <h3>Type Scale</h3>
+            <div class="scale-row">
+                <span class="scale-label">Display 1 / 64px</span>
+                <span class="scale-sample display-1">Own Your Drive</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Display 2 / 48px</span>
+                <span class="scale-sample display-2">Vehicle Status</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Heading 1 / 32px</span>
+                <span class="scale-sample heading-1">Maintenance Due</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Heading 2 / 24px</span>
+                <span class="scale-sample heading-2">Oil Change</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Heading 3 / 18px</span>
+                <span class="scale-sample heading-3">Service History</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Body / 16px</span>
+                <span class="scale-sample body">Your tires are showing uneven wear patterns, which often indicates an alignment issue worth checking.</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Body Small / 14px</span>
+                <span class="scale-sample body-small">Last serviced January 15, 2025 at Auto Center Rio</span>
+            </div>
+            <div class="scale-row">
+                <span class="scale-label">Label / 11px</span>
+                <span class="scale-sample label">Upcoming Maintenance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voice Section -->
+    <section id="voice">
+        <p class="section-label">Brand Voice</p>
+        <h2 class="section-title">Coach,<br>Not Critic.</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Direct, motivating, and clear. We help you stay on track without making you feel bad.</p>
+
+        <div class="voice-principles">
+            <div class="voice-card">
+                <h3>Direct</h3>
+                <p>Say what needs to happen. No hedging, no filler. "Oil change due in 800km" beats "You might want to consider scheduling an oil change soon."</p>
+            </div>
+            <div class="voice-card">
+                <h3>Motivating</h3>
+                <p>Frame maintenance as progress, not punishment. Celebrate streaks. Acknowledge effort. Make doing the right thing feel good.</p>
+            </div>
+            <div class="voice-card">
+                <h3>Clear</h3>
+                <p>No jargon. No codes without explanations. If we mention "P0420," we tell you what it means in plain language right after.</p>
+            </div>
+        </div>
+
+        <div class="voice-examples">
+            <div class="voice-example">
+                <p class="voice-example-label do">Kopilot Says</p>
+                <p>"Oil change in 800 km. You're on a 3-month streak—keep it going!"</p>
+            </div>
+            <div class="voice-example">
+                <p class="voice-example-label dont">Kopilot Doesn't Say</p>
+                <p>"WARNING: Your vehicle may be approaching the recommended oil change interval. Please consult your owner's manual."</p>
+            </div>
+            <div class="voice-example">
+                <p class="voice-example-label do">Kopilot Says</p>
+                <p>"Front left tire is low: 24 PSI. Target is 32. Here's how to fix it."</p>
+            </div>
+            <div class="voice-example">
+                <p class="voice-example-label dont">Kopilot Doesn't Say</p>
+                <p>"Tire pressure monitoring system has detected a deviation from optimal parameters."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section id="app">
+        <p class="section-label">Application</p>
+        <h2 class="section-title">The Brand<br>In Action</h2>
+        <p class="section-subtitle">High contrast, bold type, and clear visual hierarchy. Every screen feels decisive.</p>
+
+        <div class="app-showcase">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <div class="app-header-top">
+                            <div>
+                                <small>Your Garage</small>
+                                <h4>HONDA CIVIC 2019</h4>
+                            </div>
+                            <div class="health-score">
+                                <span class="dot"></span>
+                                <span>92%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-content">
+                        <p class="app-section-label">Needs Attention</p>
+                        <div class="app-card warning">
+                            <div class="app-card-header">
+                                <div class="app-card-title">OIL CHANGE</div>
+                                <span class="app-card-badge warning">Soon</span>
+                            </div>
+                            <div class="app-card-sub"><strong>800 km</strong> remaining</div>
+                        </div>
+                        <div class="app-card critical">
+                            <div class="app-card-header">
+                                <div class="app-card-title">TIRE PRESSURE</div>
+                                <span class="app-card-badge critical">Low</span>
+                            </div>
+                            <div class="app-card-sub">Front left: <strong class="critical">24 PSI</strong> (target: 32)</div>
+                        </div>
+
+                        <p class="app-section-label" style="margin-top: 1.25rem;">Recent Activity</p>
+                        <div class="app-card success">
+                            <div class="app-card-title">BRAKE PADS REPLACED</div>
+                            <div class="app-card-sub">Jan 10 · <strong class="success">3-month streak!</strong></div>
+                        </div>
+                        <div class="app-card">
+                            <div class="app-card-title">BATTERY CHECK</div>
+                            <div class="app-card-sub">Dec 28 · Passed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-features">
+                <h3>Core Features</h3>
+                <div class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-text">
+                        <h4>Smart Reminders</h4>
+                        <p>Timely nudges based on mileage, time, and your driving patterns. Not arbitrary intervals.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <h4>Health Score</h4>
+                        <p>One number that tells you how your car is doing. Green means go. Simple.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-text">
+                        <h4>Service History</h4>
+                        <p>Every oil change, every repair, every check. Valuable now, priceless at resale.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔊</div>
+                    <div class="feature-text">
+                        <h4>Problem Diagnosis</h4>
+                        <p>Describe symptoms. Upload photos. Record sounds. Get possible causes before the mechanic.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-text">
+                        <h4>Streaks & Progress</h4>
+                        <p>Track your maintenance consistency. Build streaks. Own your drive.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0V28H6V18L16 28H24L10 14L24 0H16L6 12V0H0Z" fill="white"/>
+            <rect x="0" y="30" width="12" height="2" fill="#FF5F1F"/>
+        </svg>
+        <p>Kopilot Brand System v1.0 · February 2026 · Own Your Drive.</p>
+    </footer>
+    <script>
+    function copyColor(el) {
+        var text = el.textContent.trim();
+        if (text.startsWith('RGB')) text = text.replace('RGB ', '');
+        navigator.clipboard.writeText(text);
+        el.classList.add('copied');
+        var orig = el.textContent;
+        el.textContent = 'Copied!';
+        setTimeout(function() {
+            el.textContent = orig;
+            el.classList.remove('copied');
+        }, 1200);
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+secrets
+*.pyc
+__pycache__/
+node_modules/
