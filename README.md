@@ -1,6 +1,6 @@
 # Kopilot
 
-Kopilot is a mobile app that helps people maintain their cars. This repo contains the product documentation, brand system, and supporting materials used throughout the Product Heroes course.
+Kopilot is a mobile app that helps people maintain their cars. This repo contains the product documentation, brand system, and supporting materials.
 
 Live brand system: [brand.kopilot.autos](https://brand.kopilot.autos)
 
