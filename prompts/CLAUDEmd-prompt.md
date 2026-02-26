@@ -11,17 +11,19 @@ Utilizzo **Claude Code** per scrivere e mantenere le specifiche aggiornate.
 
 ---
 
-## 2. Documenti già presenti
+## 2. Gerarchia dei documenti
 
-| File | Descrizione | Note |
-|------|-------------|------|
-| `prd.md` | Product Requirements Document | Contesto prodotto e roadmap. Le specifiche di ogni feature vanno negli epics. |
-| `brand-system/brand-system.md` | Brand system (AI-readable) | Design tokens, voice & tone |
-| `brand-system/brand-system.html` | Brand system (visuale) | Riferimento visivo per il design |
+| Livello | Cos'è | Contenuto |
+|---------|-------|-----------|
+| **PRD** | Il piano del prodotto: cosa costruire, per chi, e perché. | Snello. Per ogni feature: nome, breve descrizione (1-2 righe), link all'epic. Niente specifiche dettagliate. |
+| **Epic** | Una feature o un blocco di lavoro. | Specifica completa della funzionalità: behavior, flussi, stati, edge case, criteri di accettazione. |
+| **Story** | Un singolo task eseguibile. | Un'azione atomica che Lovable può implementare in un prompt. |
+
+> **Principio chiave:** Il PRD resta leggero — è una mappa, non un manuale. Tutta la specificazione di dettaglio vive negli epic e nelle stories.
 
 ---
 
-## 3. Obiettivo
+## 3. Obiettivo del prompt
 
 Scrivi una prima bozza di `CLAUDE.md` per la root del progetto.
 
@@ -61,5 +63,5 @@ PM esperto nella costruzione di app con **Lovable** — app complete, pronte per
 ## 7. Regole
 
 - Se aggiungiamo una cartella o cambiamo struttura → chiedimi se aggiornare il CLAUDE.md
-- Ignorare i file `CLAUDE-v1.md`, `CLAUDE-v2.md`, `CLAUDE-v3.md`
+- Ignorare i file `CLAUDE-v1.md`, `CLAUDE-v2.md`, `CLAUDE-v3.md`, `CLAUDE-v4.md`
 - Parlare sempre in **italiano**
