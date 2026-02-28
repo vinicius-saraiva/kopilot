@@ -61,6 +61,7 @@ Each feature is documented in detail in its own file under `/epics`.
 
 | Feature | Description | Target | Spec |
 |---------|-------------|--------|------|
+| **Insurance** | Dedicated insurance section: contacts, shortcuts, policy PDF, payment tracking | v1.x | [epics/insurance/epic.md](epics/insurance/epic.md) |
 | **Landing Page** | Marketing page for waitlist/download conversion | Pre-launch | [epics/landing-page/epic.md](epics/landing-page/epic.md) |
 | **Rides** | Strava-like trip tracking with GPS and stats | v2.0 | [epics/rides/epic.md](epics/rides/epic.md) |
 | **Fuel** | Fuel logging, spending insights, station comparison | v2.x | [epics/fuel/epic.md](epics/fuel/epic.md) |
