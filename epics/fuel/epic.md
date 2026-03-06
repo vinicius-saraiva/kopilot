@@ -1,7 +1,7 @@
 # Fuel
 
 **Epic:** Fuel tracking and spending insights
-**Status:** Planned (v2.x)
+**Status:** Live (v1.1)
 **Related stories:** [stories.md](stories.md) | [stories-station-lookup.md](stories-station-lookup.md)
 
 ---
@@ -36,12 +36,31 @@ Simple fuel logging that builds into powerful spending insights over time.
 
 ```
 1. User fills up at gas station
-2. Opens Kopilot → taps "Log Fuel"
-3. Inputs: liters, total cost (price per liter auto-calculates)
-4. Optional: save location, add odometer reading
-5. Save → entry added to fuel history
-6. Over time → stats dashboard populates
+2. Opens Kopilot → taps "Log Fuel" (full-screen page)
+3. Inputs: date, fuel type, liters (decimal), total cost
+4. Station: nearby search via Mapbox GPS or manual entry (PlaceSearchInput)
+5. Odometer: 6-digit wheel picker (OdometerWheelPicker) with haptic feedback
+6. Optional: full tank toggle, notes
+7. Price per liter auto-calculates (read-only)
+8. Save → animated success page with Lottie + audio feedback
+9. Over time → fuel dashboard with charts and insights
 ```
+
+## What's Built
+
+- Full fuel logging with all fields above
+- Station search via Mapbox (search-places edge function) with distance display
+- OdometerWheelPicker with circular scrolling and snap behavior
+- Fuel success page with Lottie animation, story timer, audio feedback
+- Preloaded success assets while form is being filled
+- Edit fuel entries with pre-filled form
+- Fuel statistics card: monthly spending, fill-up count, avg km/L
+- Fuel efficiency chart (km/L over time)
+- Fuel spending chart with time period filter
+- Station insights (frequent stations, average prices)
+- Fuel history list sorted by date with efficiency display
+- Time period filter (Week, Month, Year, All) aligned to calendar
+- Fuel type selection per country profile
 
 ---
 

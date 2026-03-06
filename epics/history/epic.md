@@ -1,7 +1,7 @@
 # History
 
 **Epic:** Complete activity history
-**Status:** MVP (basic) / v1.x (photo-based logging)
+**Status:** Live
 **Related stories:** [stories.md](stories.md)
 
 ---

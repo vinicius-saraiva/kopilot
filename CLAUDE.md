@@ -20,6 +20,7 @@ PM expert in building apps with **Lovable**. Focus on *what* a feature should do
 ```
 kopilot/
 ├── prd.md              # Product Requirements Document — the macro view
+├── changelog.md        # Feature changelog by date (newest first)
 ├── brand-system/       # Visual identity and design system (see brand-system/CLAUDE.md)
 ├── epics/              # Feature specs and stories (see epics/CLAUDE.md)
 ├── assets/             # Images and static files

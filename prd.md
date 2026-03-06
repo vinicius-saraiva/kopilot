@@ -1,8 +1,8 @@
 # Kopilot — Product Requirements Document
 
 **Tagline:** Own Your Drive.
-**Last Updated:** February 2025
-**Status:** Draft
+**Last Updated:** March 2026
+**Status:** Live
 
 ---
 
@@ -10,7 +10,7 @@
 
 Kopilot is a mobile app that helps non-car-people maintain their vehicles. It transforms forgotten maintenance and regulatory obligations into trackable reminders with a clear, motivating interface.
 
-The app tracks 13+ items out of the box (regulatory + maintenance, varying by country), sends proactive reminders, and logs a complete vehicle history over time. Country profiles for Brazil, USA, and Italy define which items are shown. Future versions will add ride tracking, fuel insights, an AI mechanic assistant, and hardware integration.
+The app tracks 13+ items out of the box (regulatory + maintenance, varying by country), sends proactive reminders, and logs a complete vehicle history over time. Country profiles for Brazil, USA, and Italy define which items are shown. It includes ride tracking with GPS, fuel logging with spending insights, maintenance visit logging with invoice photos, a unified spending history, shortcuts, offline support, and full i18n (PT-BR, EN, IT). Future versions will add an AI mechanic assistant and hardware integration.
 
 ---
 
@@ -46,25 +46,30 @@ Both problems share the same root cause: no system reminds them proactively with
 
 Each feature is documented in detail in its own file under `/epics`.
 
-### Core (MVP)
+### Live
 
 | Feature | Description | Spec |
 |---------|-------------|------|
-| **Onboarding** | New user flow: welcome, country selection, add vehicle, quick setup | [epics/onboarding/epic.md](epics/onboarding/epic.md) |
-| **Dashboard** | Home page with all trackable items, status indicators, reminders | [epics/dashboard/epic.md](epics/dashboard/epic.md) |
-| **Country Profiles** | Country-based configuration of regulatory items, maintenance items, currency, and units (Brazil, USA, Italy) | [epics/country-profiles/epic.md](epics/country-profiles/epic.md) |
-| **History** | Unified timeline of all vehicle events (maintenance, fuel, docs, mechanic visits) | [epics/history/epic.md](epics/history/epic.md) |
-| **Settings** | Account, country, language, currency, vehicle management, updates | [epics/settings/epic.md](epics/settings/epic.md) |
-| **i18n** | Multi-language support (PT-BR, EN, IT) | [epics/i18n/epic.md](epics/i18n/epic.md) |
+| **Onboarding** | Welcome page, auth (email + Google), forgot/reset password, add vehicle | [epics/onboarding/epic.md](epics/onboarding/epic.md) |
+| **Dashboard** | Vehicle header, summary cards (checklist, fuel, rides, history), shortcuts | [epics/dashboard/epic.md](epics/dashboard/epic.md) |
+| **Checklist** | 13+ trackable items (regulatory + maintenance), status indicators, mark as done with cost/mileage | [epics/dashboard/epic.md](epics/dashboard/epic.md) |
+| **Country Profiles** | Country-based configuration for Brazil, USA, Italy (items, fuel types, currency, units, state selection) | [epics/country-profiles/epic.md](epics/country-profiles/epic.md) |
+| **Rides** | GPS trip tracking with live map, snap-to-road, speed/distance stats, ride history, wake lock | [epics/rides/epic.md](epics/rides/epic.md) |
+| **Fuel** | Fuel logging with station search (Mapbox), efficiency charts, spending insights, odometer wheel picker | [epics/fuel/epic.md](epics/fuel/epic.md) |
+| **History** | Unified spending timeline (fuel + maintenance + visits + regulatory), category filters, spending chart | [epics/history/epic.md](epics/history/epic.md) |
+| **Maintenance Visits** | Mechanic visit logging with location search, invoice photo upload, signed URLs | [epics/history/epic.md](epics/history/epic.md) |
+| **Settings** | Account, language, currency, vehicle management, mileage update, PWA updates | [epics/settings/epic.md](epics/settings/epic.md) |
+| **i18n** | Full multi-language support (PT-BR, EN, IT) with locale-aware formatting | [epics/i18n/epic.md](epics/i18n/epic.md) |
+| **Shortcuts** | Quick-access links from dashboard (URLs, phone/WhatsApp, custom icons) | — |
+| **Offline & PWA** | Offline data persistence (localStorage), installable PWA, auto-update checking | — |
+| **Privacy Policy** | Legal privacy disclosure covering all collected data | [epics/privacy-policy/epic.md](epics/privacy-policy/epic.md) |
+| **Landing Page** | Marketing page with hero, features, CTA | [epics/landing-page/epic.md](epics/landing-page/epic.md) |
 
 ### Planned
 
 | Feature | Description | Target | Spec |
 |---------|-------------|--------|------|
 | **Insurance** | Dedicated insurance section: contacts, shortcuts, policy PDF, payment tracking | v1.x | [epics/insurance/epic.md](epics/insurance/epic.md) |
-| **Landing Page** | Marketing page for waitlist/download conversion | Pre-launch | [epics/landing-page/epic.md](epics/landing-page/epic.md) |
-| **Rides** | Strava-like trip tracking with GPS and stats | v2.0 | [epics/rides/epic.md](epics/rides/epic.md) |
-| **Fuel** | Fuel logging, spending insights, station comparison | v2.x | [epics/fuel/epic.md](epics/fuel/epic.md) |
 
 ### Future (to be planned)
 
@@ -83,20 +88,22 @@ Each feature is documented in detail in its own file under `/epics`.
 | **Frontend** | Lovable | Visual builder, generates React code |
 | **Backend** | Lovable Cloud | Managed backend services |
 | **AI Features** | Lovable AI | For future Mechanic feature |
-| **Platform** | Mobile-responsive web app (PWA potential) | Native apps post-MVP |
-| **Offline** | Core functionality works offline, sync when connected | |
+| **Maps & Location** | Mapbox | GPS tracking, station search, snap-to-road, place search |
+| **Platform** | PWA (installable mobile web app) | Wake lock, offline persistence, auto-update |
+| **Offline** | React Query + localStorage | 24h cache, offline-first network mode |
 
 ---
 
 ## 6. Roadmap
 
-| Phase | Focus | Key Features |
-|-------|-------|--------------|
-| **MVP (v1.0)** | Core utility | Onboarding, Dashboard, History, Settings |
-| **v1.x** | Richer history | Photo-based maintenance logging, invoice storage |
-| **v2.0** | Engagement | Rides tracking, driving stats |
-| **v2.x** | Financial + AI | Fuel tracking, spending insights, AI Mechanic |
-| **v3.0+** | Hardware | OBD-II integration, real-time car data |
+| Phase | Focus | Key Features | Status |
+|-------|-------|--------------|--------|
+| **v1.0** | Core utility | Onboarding, Dashboard, Checklist, History, Settings, i18n | Done |
+| **v1.1** | Engagement | Rides (GPS tracking), Fuel (logging + insights), Shortcuts, PWA/Offline | Done |
+| **v1.2** | Polish | Station search (Mapbox), Odometer wheel picker, Forgot password, Invoice photos | Done |
+| **v1.x** | Richer features | Insurance card, photo-based history, notification reminders | Next |
+| **v2.x** | AI + Advanced | AI Mechanic assistant, advanced fuel analytics | Planned |
+| **v3.0+** | Hardware | OBD-II integration, real-time car data | Future |
 
 ---
 
@@ -112,4 +119,4 @@ Since this is initially a tool for personal use:
 
 ---
 
-*Kopilot PRD — February 2025*
+*Kopilot PRD — March 2026*

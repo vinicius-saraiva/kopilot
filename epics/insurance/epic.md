@@ -8,199 +8,103 @@
 
 ## Obiettivo
 
-Trasformare l'assicurazione da semplice reminder con data di scadenza (come oggi nella Dashboard) a una sezione dedicata dove l'utente ha tutto sotto controllo: chi è il suo assicuratore, chi è il suo intermediario, come contattarli rapidamente, quanto sta pagando, come, e quando scade.
+Trasformare l'assicurazione da semplice reminder con data di scadenza (come oggi nella Dashboard) a una scheda dedicata dove l'utente ha tutto sotto controllo: chi contattare, quanto paga, quando scade.
 
----
-
-## Contesto: come funziona l'assicurazione per paese
-
-### Brasile
-
-In Brasile l'assicurazione auto è **volontaria** e funziona con un modello a due attori:
-
-- **Corretora de seguros** (broker) — l'intermediario che cerca le migliori offerte tra diverse compagnie. È il punto di contatto principale dell'utente per preventivi, rinnovi e sinistri.
-- **Seguradora** (compagnia assicurativa) — chi emette la polizza (es. HDI, Porto Seguro, Tokio Marine, Allianz, Bradesco Seguros).
-
-L'utente ha bisogno dei contatti di **entrambi**.
-
-### USA
-
-L'utente tratta direttamente con la compagnia assicurativa (State Farm, Geico, Progressive...) o tramite un agente/broker. L'assicurazione di responsabilità civile è **obbligatoria**.
-
-### Italia
-
-L'utente può trattare direttamente con la compagnia (UnipolSai, Generali, Allianz...) o tramite un'agenzia. L'assicurazione RC Auto è **obbligatoria**.
-
-> **Principio:** La sezione deve essere flessibile — supportare da un solo contatto (compagnia diretta) a due contatti separati (broker + compagnia), senza forzare una struttura rigida.
+Il caso d'uso principale è: **"Ho bisogno di chiamare qualcuno per la mia assicurazione, subito"** — i contatti devono essere raggiungibili in 2 tap dalla Dashboard.
 
 ---
 
 ## Come funziona
 
-La sezione Assicurazione è accessibile dalla Dashboard, tappando sull'item "Seguro" / "Insurance" / "Assicurazione". Invece di aprire un semplice form di reminder, si apre una **scheda dedicata** con tutte le informazioni della polizza.
+Dalla Dashboard, tappando sull'item "Seguro" / "Insurance" / "Assicurazione", si apre una scheda dedicata (non più un semplice form data). La scheda raccoglie tutte le informazioni della polizza in un'unica pagina scrollabile.
 
-### Struttura della scheda
+### Sezioni della scheda
 
-```
-┌─────────────────────────────────────┐
-│ Assicurazione                       │
-├─────────────────────────────────────┤
-│                                     │
-│ STATO           ● Attiva (scade tra │
-│                   47 giorni)        │
-│                                     │
-├─────────────────────────────────────┤
-│ CONTATTI                            │
-│                                     │
-│ ┌─────────────────────────────────┐ │
-│ │ Corretora / Broker              │ │
-│ │ Maria Silva Seguros             │ │
-│ │ 📞 (11) 99999-0000  💬 🌐     │ │
-│ └─────────────────────────────────┘ │
-│                                     │
-│ ┌─────────────────────────────────┐ │
-│ │ Seguradora / Compagnia          │ │
-│ │ Porto Seguro                    │ │
-│ │ 📞 0800-727-0800   💬 🌐 📱   │ │
-│ └─────────────────────────────────┘ │
-│                                     │
-├─────────────────────────────────────┤
-│ POLIZZA                             │
-│                                     │
-│ Numero:    1234567890               │
-│ Vigenza:   01/03/2025 → 01/03/2026 │
-│ Documento: polizza.pdf  [Apri]      │
-│                                     │
-├─────────────────────────────────────┤
-│ PAGAMENTO                           │
-│                                     │
-│ Totale:    R$ 2.400,00              │
-│ Modalità:  8x di R$ 300,00         │
-│ Carta:     Nubank ****4321          │
-│ Prossima:  15/04/2025 (rata 3/8)   │
-│                                     │
-└─────────────────────────────────────┘
-```
+**Stato** — Se la polizza è attiva, in scadenza, o scaduta. Derivato dalla data di scadenza.
+
+**Contatti** — Uno o due blocchi contatto con azioni rapide (telefono, WhatsApp, sito, app). Usare gli stessi componenti di contatto e shortcut già presenti nella Dashboard.
+
+**Polizza** — Numero polizza, date di vigenza (inizio/scadenza), documento PDF caricabile e consultabile in-app.
+
+**Pagamento** — Valore totale, modalità (unica o rateale), carta utilizzata. Se rateale: numero rate e quale rata è la prossima.
 
 ---
 
-## Contatti e Shortcut
+## Contatti
 
-I contatti usano lo stesso pattern di **shortcut** già presente nella Dashboard (es. link al DETRAN, DMV). Ogni contatto è un blocco con:
+L'utente può avere **1 o 2 blocchi contatto** — flessibile, non forzato.
 
-| Campo | Tipo | Obbligatorio | Note |
-|-------|------|:---:|-------|
-| Etichetta | Testo | Sì | Es. "Corretora", "Seguradora", "Agent", "Compagnia" — l'utente sceglie |
-| Nome | Testo | Sì | Es. "Maria Silva Seguros", "Porto Seguro" |
-| Telefono | Telefono | No | Tap per chiamare |
-| WhatsApp | Telefono/Link | No | Tap per aprire chat WhatsApp |
-| Sito web | URL | No | Tap per aprire browser |
-| App | Deep link / URL | No | Tap per aprire l'app della compagnia |
+Ogni blocco ha: etichetta libera (es. "Corretora", "Compagnia", "Agent"), nome, e azioni rapide per contattare (telefono, WhatsApp, sito web, app).
 
-- L'utente può aggiungere **1 o 2 blocchi contatto** (flessibile).
-- In Brasile il setup suggerisce due blocchi: "Corretora" e "Seguradora".
-- In USA/Italia il setup suggerisce un blocco unico: "Compagnia" / "Insurance Company".
-- L'utente può sempre aggiungere o rimuovere un blocco.
+### Perché 1 o 2 contatti
+
+| Paese | Modello tipico |
+|-------|---------------|
+| **Brasile** | Due attori: **corretora** (broker, punto di contatto principale) + **seguradora** (compagnia che emette la polizza). L'utente ha bisogno dei contatti di entrambi. |
+| **USA** | Compagnia diretta (State Farm, Geico...) o tramite agent/broker. Di solito un solo contatto basta. |
+| **Italia** | Compagnia diretta (UnipolSai, Generali...) o tramite agenzia. Di solito un solo contatto basta. |
+
+In Brasile suggerire due blocchi ("Corretora" + "Seguradora"). In USA/Italia suggerire un blocco ("Compagnia" / "Insurance Company"). L'utente può sempre aggiungere o rimuovere un blocco.
 
 ---
 
 ## Polizza
 
-| Campo | Tipo | Obbligatorio | Note |
-|-------|------|:---:|-------|
-| Numero polizza | Testo | No | Numero identificativo della polizza |
-| Data inizio | Data | Sì | Inizio della copertura |
-| Data scadenza | Data | Sì | Fine della copertura — alimenta il reminder |
-| Documento PDF | File (upload) | No | L'utente carica il PDF della polizza |
-
-### Upload PDF
-
-- Formati accettati: PDF
-- Il file è consultabile in-app (visualizzatore PDF o apertura nel viewer di sistema)
-- L'utente può sostituire il documento in qualsiasi momento
+| Campo | Obbligatorio | Note |
+|-------|:---:|-------|
+| Numero polizza | No | Identificativo della polizza |
+| Data inizio | Sì | Inizio copertura |
+| Data scadenza | Sì | Fine copertura — alimenta il reminder sulla Dashboard |
+| Documento PDF | No | Upload, consultabile in-app con un tap |
 
 ---
 
 ## Pagamento
 
-| Campo | Tipo | Obbligatorio | Note |
-|-------|------|:---:|-------|
-| Valore totale | Valuta | No | Importo complessivo della polizza |
-| Modalità | Selezione | No | Pagamento unico / Rateale |
-| Numero rate | Numero | No | Visibile solo se modalità = Rateale |
-| Carta utilizzata | Testo | No | Es. "Nubank ****4321" — testo libero |
+| Campo | Obbligatorio | Note |
+|-------|:---:|-------|
+| Valore totale | No | Importo complessivo |
+| Modalità | No | Pagamento unico o rateale |
+| Numero rate | No | Solo se rateale |
+| Carta utilizzata | No | Testo libero, es. "Nubank ****4321" |
 
-### Logica rate
+Se rateale, mostrare quale rata è la prossima (calcolata da totale, numero rate, e date di vigenza).
 
-Se l'utente sceglie **Rateale**:
-- Il sistema calcola il valore di ogni rata (totale / numero rate)
-- Mostra quale rata è la prossima basandosi sulla data di inizio e il numero di rate distribuite nell'anno di copertura
-- Es. polizza da R$ 2.400 in 8x → rate da R$ 300, distribuite ogni ~37 giorni dalla data di inizio
+Se il pagamento è a rate, sullo storico di spese, devi aggiungere soltanto la rate equivalente al mese su ogni mese.
+
+---
+
+## Flussi principali
+
+### Primo setup
+
+L'utente tappa "Seguro" dalla Dashboard → scheda vuota con invito a compilare → compila contatti, polizza, pagamento. Ogni sezione è salvabile indipendentemente. La data di scadenza alimenta il reminder.
+
+### Consultazione rapida
+
+L'utente ha un problema → apre Kopilot → tappa "Seguro" → vede i contatti → tappa WhatsApp o telefono → contatto raggiunto in 2 tap.
+
+### Rinnovo
+
+Reminder 30 giorni prima della scadenza → l'utente rinnova → aggiorna date, importo, carica nuovo PDF → il vecchio PDF e i dati precedenti vanno nello storico (History).
 
 ---
 
 ## Requisiti
 
-| Requisito | Priorità | Note |
-|-----------|----------|------|
-| Scheda dedicata assicurazione (non solo reminder) | P0 | Sostituisce il semplice item della Dashboard |
-| Blocchi contatto flessibili (1 o 2) | P0 | Broker + compagnia o solo compagnia |
-| Shortcut telefono, WhatsApp, sito, app | P0 | Azioni rapide — stessa UX dei shortcut Dashboard |
-| Data scadenza con reminder | P0 | Già esistente, da mantenere |
-| Upload PDF polizza | P1 | Consultabile in-app |
-| Info pagamento (totale, modalità, rate, carta) | P1 | |
-| Calcolo e visualizzazione rata corrente | P2 | Derivato da totale + numero rate + date |
-| Numero polizza | P2 | |
-| Suggerimento blocchi contatto per paese | P2 | Brasile → 2 blocchi, USA/Italia → 1 blocco |
-
----
-
-## Flusso utente
-
-### Primo setup (da Dashboard)
-
-```
-1. Utente tappa "Seguro" / "Insurance" sulla Dashboard
-2. Se non ha dati → scheda vuota con invito a compilare
-3. Compila i campi in ordine:
-   a. Contatti (chi è la mia assicurazione / broker?)
-   b. Polizza (quando scade? upload PDF)
-   c. Pagamento (quanto pago? come?)
-4. Ogni sezione è salvabile indipendentemente
-5. La data di scadenza alimenta il reminder sulla Dashboard
-```
-
-### Consultazione rapida
-
-```
-1. Utente ha un problema con l'auto
-2. Apre Kopilot → tappa "Seguro"
-3. Vede i contatti → tappa WhatsApp della corretora
-4. Chat aperta in 2 tap dalla Dashboard
-```
-
-### Rinnovo
-
-```
-1. Reminder 30 giorni prima della scadenza
-2. Utente rinnova la polizza
-3. Aggiorna date, importo, upload nuovo PDF
-4. Il vecchio PDF va nello storico (History)
-```
-
----
-
-## Note di design
-
-- La scheda deve sembrare una "carta d'identità" della polizza — tutto su una pagina, scrollabile
-- I blocchi contatto devono essere visivamente prominenti — il caso d'uso principale è "ho bisogno di chiamare qualcuno, subito"
-- Le shortcut (telefono, WhatsApp, sito, app) devono essere icone tappabili, non link testuali
-- Il PDF deve essere apribile con un solo tap
+| Requisito | Priorità |
+|-----------|----------|
+| Scheda dedicata (sostituisce il semplice reminder) | P0 |
+| Blocchi contatto con azioni rapide | P0 |
+| Data scadenza con reminder | P0 |
+| Upload e visualizzazione PDF polizza | P1 |
+| Info pagamento con rate | P1 |
+| Suggerimento numero blocchi per paese | P2 |
 
 ---
 
 ## Impatto su altri epic
 
-- **Dashboard:** L'item "Seguro" / "Insurance" / "Assicurazione" nella Dashboard ora apre questa scheda invece di un semplice form data.
-- **Country Profiles:** I suggerimenti per i blocchi contatto (1 vs 2) e le etichette dipendono dal paese selezionato.
-- **History:** Quando l'utente rinnova la polizza, il vecchio documento e i dati precedenti vengono archiviati nella timeline.
+- **Dashboard:** L'item assicurazione ora apre questa scheda invece di un semplice form data.
+- **Country Profiles:** I suggerimenti per i blocchi contatto (1 vs 2) e le etichette dipendono dal paese.
+- **History:** Al rinnovo, il vecchio documento e i dati precedenti vengono archiviati.

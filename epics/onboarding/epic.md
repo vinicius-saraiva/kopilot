@@ -1,7 +1,7 @@
 # Onboarding
 
 **Epic:** New user onboarding flow
-**Status:** MVP
+**Status:** Live
 
 ---
 

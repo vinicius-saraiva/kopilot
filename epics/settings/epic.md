@@ -1,7 +1,7 @@
 # Settings
 
 **Epic:** App settings and preferences
-**Status:** MVP
+**Status:** Live
 **Related:** [i18n / Localisation](../i18n/epic.md)
 
 ---

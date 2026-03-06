@@ -1,7 +1,7 @@
 # Dashboard
 
 **Epic:** Home screen / main dashboard
-**Status:** MVP
+**Status:** Live
 
 ---
 

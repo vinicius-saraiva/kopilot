@@ -1,7 +1,7 @@
 # Rides
 
 **Epic:** Trip/ride tracking (Strava-like for cars)
-**Status:** Planned (v2.0)
+**Status:** Live (v1.1)
 **Related stories:** [stories.md](stories.md)
 
 ---
@@ -20,11 +20,18 @@ Strava-like ride tracking for car trips with GPS trail capture and aggregate sta
 
 ## Features
 
-- Start/stop ride recording
-- GPS trail capture
-- Trip statistics: duration, distance, average speed, route taken
-- Aggregate stats: trips per week, most common routes, monthly km
-- Trip history with map visualization
+- Start/stop ride recording with live GPS tracking
+- GPS trail capture with high accuracy (10m minimum distance threshold)
+- Snap-to-road route matching via Mapbox Directions API
+- Trip statistics: duration, distance, average speed, max speed, route taken
+- Trip history with Strava-style map previews
+- Full-screen active ride mode with Waze-style live map
+- Navigation arrow marker aligned with bearing
+- Auto-named rides by time of day (Morning Ride, Afternoon Drive, etc.)
+- Screen wake lock to keep display on during tracking
+- Ride detail page with interactive map, stats cards, start/end locations
+- Delete ride with confirmation
+- Cached snapped routes in database for performance
 
 ---
 
@@ -51,7 +58,11 @@ Strava-like ride tracking for car trips with GPS trail capture and aggregate sta
 
 ## Technical Considerations
 
-- Background GPS tracking (battery optimization critical)
-- Map rendering (Mapbox / Google Maps)
-- Privacy: local-first, user controls what's shared
-- May require native app for reliable background tracking
+- GPS tracking via browser Geolocation API (high accuracy mode)
+- Map rendering via Mapbox GL JS
+- Snap-to-road via Mapbox Directions API (match-route edge function)
+- Wake Lock API for screen-on during tracking (progressive enhancement)
+- Haversine formula for distance calculation
+- Route points stored as JSON array (lat, lng, timestamp, speed, bearing)
+- Mapbox token fetched via authenticated edge function
+- PWA required for reliable foreground tracking
