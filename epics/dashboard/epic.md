@@ -2,6 +2,7 @@
 
 **Epic:** Home screen / main dashboard
 **Status:** Live
+**Related:** [Kopilot+](../kopilot-plus/epic.md)
 
 ---
 

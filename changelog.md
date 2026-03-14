@@ -4,6 +4,61 @@ All notable changes to Kopilot are documented here. Organized by date, newest fi
 
 ---
 
+## 2026-03-13
+
+### Onboarding — Full Flow (Stories 1–7)
+- Built complete onboarding flow: intro stories → country → vehicle type → brand → model/year/nickname → plate → odometer → dashboard
+- 3 intro story screens (maintenance, fuel, rides) with tap-to-advance, hold-to-pause, auto-progress bar — same interaction pattern as FuelSuccess
+- Country selection screen with Brazil/USA/Italy cards, conditional state/region dropdown, auto-sets locale and currency
+- Vehicle type selection (car / motorcycle) with "Coming Soon" overlay on motorcycle
+- Brand arc picker (BrandArcPicker component) with framer-motion pan gesture, snap-to-nearest, haptic feedback, and "Other" option with custom text input
+- Country-specific brand list: `country_brands` table with top 20 brands per country (BR, US, IT), loaded dynamically with fallback to hardcoded list
+- Model, year, and nickname screen with brand icon confirmation header
+- Plate number screen (skippable, auto-uppercase)
+- Odometer screen (skippable) with OdometerWheelPicker, creates vehicle in database on finish
+- Auto-redirect to `/onboarding` when logged-in user has no vehicle
+- Vehicle data stored progressively via localStorage, saved to Supabase on final step
+- Image preloading for vehicle type screen assets
+- All screens use 6-step progress indicator and i18n (PT-BR, EN, IT)
+
+---
+
+## 2026-03-07
+
+### Rides
+- Added elevation gain tracking during GPS recording (new `elevation_gain` column)
+- Added speed chart (speed over distance) in ride detail with average speed reference line
+- Compact inline back button on ride detail
+- Removed AppLayout wrapper from RideDetail for full-screen feel
+
+### Fuel — Stations Map
+- Built full map view of visited stations (Mapbox dark style)
+- Color-coded station markers: green (below avg), red (above avg)
+- 30-day rolling average price card on map
+- Station cards show city, district, and last visit date
+- Added `station_address` column with reverse geocoding
+- Backfilled existing station addresses with state (UF) for Brazil
+- Recenter button and user location blue dot on map
+- Empty state for stations page when no data
+- Price difference display (absolute diff vs overall average)
+
+### UX
+- Improved toast visuals: accent left border, always-visible close button, compact layout
+
+### Auth & Emails
+- Custom branded email templates for all auth flows (signup, recovery, magic link, invite, email change, reauthentication)
+- Auth email hook edge function with Kopilot branding and `mail.kopilot.autos` sender domain
+- Email logo with brand assets from `brand.kopilot.autos`
+- Updated sender name to "Kopilot"
+
+### Onboarding
+- BrandSelect component for vehicle make field (icon-based brand picker)
+- Improved AddVehicle page scrolling
+- Auto-redirect to add-vehicle after first login
+- Improved forgot-password error UX
+
+---
+
 ## 2026-03-06
 
 ### Rides

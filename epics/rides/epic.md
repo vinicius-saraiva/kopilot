@@ -32,6 +32,8 @@ Strava-like ride tracking for car trips with GPS trail capture and aggregate sta
 - Ride detail page with interactive map, stats cards, start/end locations
 - Delete ride with confirmation
 - Cached snapped routes in database for performance
+- Elevation gain tracking during GPS recording
+- Speed chart in ride detail (speed over distance with avg speed reference line)
 
 ---
 
@@ -63,6 +65,6 @@ Strava-like ride tracking for car trips with GPS trail capture and aggregate sta
 - Snap-to-road via Mapbox Directions API (match-route edge function)
 - Wake Lock API for screen-on during tracking (progressive enhancement)
 - Haversine formula for distance calculation
-- Route points stored as JSON array (lat, lng, timestamp, speed, bearing)
+- Route points stored as JSON array (lat, lng, timestamp, speed, bearing, altitude)
 - Mapbox token fetched via authenticated edge function
 - PWA required for reliable foreground tracking

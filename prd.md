@@ -54,8 +54,8 @@ Each feature is documented in detail in its own file under `/epics`.
 | **Dashboard** | Vehicle header, summary cards (checklist, fuel, rides, history), shortcuts | [epics/dashboard/epic.md](epics/dashboard/epic.md) |
 | **Checklist** | 13+ trackable items (regulatory + maintenance), status indicators, mark as done with cost/mileage | [epics/dashboard/epic.md](epics/dashboard/epic.md) |
 | **Country Profiles** | Country-based configuration for Brazil, USA, Italy (items, fuel types, currency, units, state selection) | [epics/country-profiles/epic.md](epics/country-profiles/epic.md) |
-| **Rides** | GPS trip tracking with live map, snap-to-road, speed/distance stats, ride history, wake lock | [epics/rides/epic.md](epics/rides/epic.md) |
-| **Fuel** | Fuel logging with station search (Mapbox), efficiency charts, spending insights, odometer wheel picker | [epics/fuel/epic.md](epics/fuel/epic.md) |
+| **Rides** | GPS trip tracking with live map, snap-to-road, speed/distance/elevation stats, speed chart, ride history, wake lock | [epics/rides/epic.md](epics/rides/epic.md) |
+| **Fuel** | Fuel logging with station search (Mapbox), stations map, efficiency charts, spending insights, odometer wheel picker | [epics/fuel/epic.md](epics/fuel/epic.md) |
 | **History** | Unified spending timeline (fuel + maintenance + visits + regulatory), category filters, spending chart | [epics/history/epic.md](epics/history/epic.md) |
 | **Maintenance Visits** | Mechanic visit logging with location search, invoice photo upload, signed URLs | [epics/history/epic.md](epics/history/epic.md) |
 | **Settings** | Account, language, currency, vehicle management, mileage update, PWA updates | [epics/settings/epic.md](epics/settings/epic.md) |
@@ -69,6 +69,7 @@ Each feature is documented in detail in its own file under `/epics`.
 
 | Feature | Description | Target | Spec |
 |---------|-------------|--------|------|
+| **Kopilot+** | Monthly subscription (R$15, Brazil only) with partner discounts — Stripe integration, dashboard promo card, info page | v1.x | [epics/kopilot-plus/epic.md](epics/kopilot-plus/epic.md) |
 | **Insurance** | Dedicated insurance section: contacts, shortcuts, policy PDF, payment tracking | v1.x | [epics/insurance/epic.md](epics/insurance/epic.md) |
 
 ### Future (to be planned)
@@ -101,6 +102,7 @@ Each feature is documented in detail in its own file under `/epics`.
 | **v1.0** | Core utility | Onboarding, Dashboard, Checklist, History, Settings, i18n | Done |
 | **v1.1** | Engagement | Rides (GPS tracking), Fuel (logging + insights), Shortcuts, PWA/Offline | Done |
 | **v1.2** | Polish | Station search (Mapbox), Odometer wheel picker, Forgot password, Invoice photos | Done |
+| **v1.3** | Depth | Stations map, ride elevation/speed chart, branded auth emails, onboarding UX | Done |
 | **v1.x** | Richer features | Insurance card, photo-based history, notification reminders | Next |
 | **v2.x** | AI + Advanced | AI Mechanic assistant, advanced fuel analytics | Planned |
 | **v3.0+** | Hardware | OBD-II integration, real-time car data | Future |

@@ -1,46 +1,57 @@
 # Fake GPS Location in Chrome for Testing
 
-Simulate a car driving through Sao Paulo while testing the app in Chrome.
+Simulate a car driving real routes while testing Kopilot's ride tracking in Chrome.
 
 ---
 
-## Quick Start (3 commands)
+## Quick Start
 
 **Open two terminal windows and run:**
 
 ### Terminal 1 — Open Chrome in debug mode
 
-Quit Chrome first (Cmd+Q), then:
+Quit Chrome first (Cmd+Q), then run as a single line:
 
 ```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-  --remote-debugging-port=9222 \
-  --user-data-dir=/tmp/chrome-kopilot-test \
-  "http://localhost:3000"
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-kopilot-test "https://app.kopilot.autos/rides"
 ```
 
-This opens a fresh Chrome window pointing at your app. Replace `http://localhost:3000` with your app's URL.
+This opens a fresh Chrome window with Kopilot's Rides page. Log in if needed.
 
 ### Terminal 2 — Start the drive simulation
 
 ```bash
-cd /Users/viniciusandrade/Documents/Projects/kopilot/tutorials
+cd /Users/viniciusandrade/Documents/Projects/kopilot/testing/drive-simulator
 npm install ws
-node drive-simulator.mjs
+node drive-simulator.mjs --route serra --timescale 30
 ```
 
-That's it. Your app now thinks you're driving down Av. Paulista at 40 km/h.
+### Steps
 
-Press `Ctrl+C` to stop.
+1. In the debug Chrome window, tap **Start Ride**
+2. Switch to Terminal 2 and run the simulator
+3. Watch the car drive from Rio up through Serra do Mar to Teresopolis (~6 min)
+4. When it finishes, tap **End Ride** in Kopilot
+
+Press `Ctrl+C` to stop the simulation early.
 
 ---
 
 ## Pick a Different Route or Speed
 
 ```bash
+node drive-simulator.mjs --route serra --timescale 20
 node drive-simulator.mjs --route pinheiros --speed 60
 node drive-simulator.mjs --route fuel-stations --speed 30 --loop
 ```
+
+**Mountain routes:**
+
+| Route | What it is | Distance |
+|-------|------------|----------|
+| `serra` | Rio → Petropolis → Teresopolis (mountain highway) | ~150 km |
+
+The `serra` route has per-waypoint speeds that vary realistically: 90 km/h on the highway, 35–50 km/h on the Serra do Mar climb, 30 km/h in city centers. Use `--timescale 20` to finish in ~5 minutes while keeping the speed data intact.
 
 **Rio de Janeiro:**
 
@@ -62,9 +73,16 @@ node drive-simulator.mjs --route fuel-stations --speed 30 --loop
 | Flag | Default | What it does |
 |------|---------|--------------|
 | `--route` | `paulista` | Which route to drive |
-| `--speed` | `40` | Speed in km/h |
+| `--speed` | `40` | Speed in km/h (ignored if route has per-waypoint speeds) |
+| `--timescale` | `1` | Run N times faster; speed DATA stays realistic |
 | `--loop` | off | Keep driving in circles |
 | `--no-roads` | off | Skip OSRM, straight lines between waypoints |
+
+### Timescale
+
+`--timescale` accelerates the simulation without changing the speed values reported to Kopilot. Each GPS position still reports the realistic speed (e.g. 50 km/h on mountain curves), but the interval between updates is shortened.
+
+This means Kopilot's recorded speed per point is accurate, but the ride's total duration will be compressed (a 2-hour drive finishes in a few minutes). Good for testing that the feature works end-to-end.
 
 ---
 
@@ -101,5 +119,7 @@ Use `--no-roads` to skip OSRM and use straight lines (useful offline).
 | Problem | Fix |
 |---------|-----|
 | `connect ECONNREFUSED` | Chrome isn't in debug mode. Quit Chrome (Cmd+Q) and relaunch with the command from Terminal 1. |
-| `Cannot find package 'ws'` | Run `npm install ws` in the tutorials folder. |
-| App doesn't react to position changes | Make sure your app calls `navigator.geolocation.watchPosition()` or `getCurrentPosition()`. Reload the page after starting the simulator. |
+| `Cannot find package 'ws'` | Run `npm install ws` in the drive-simulator folder. |
+| "Localização indisponível" in Kopilot | You must start the ride **in the debug Chrome window**, not your regular Chrome. |
+| App doesn't react to position changes | Reload the page in the debug Chrome after starting the simulator. |
+| Chrome command splits into multiple errors | Run the Chrome launch command as a **single line**, not with `\` line breaks. |

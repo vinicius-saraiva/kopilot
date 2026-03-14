@@ -2,7 +2,7 @@
 
 **Epic:** App settings and preferences
 **Status:** Live
-**Related:** [i18n / Localisation](../i18n/epic.md)
+**Related:** [i18n / Localisation](../i18n/epic.md), [Kopilot+](../kopilot-plus/epic.md)
 
 ---
 

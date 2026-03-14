@@ -150,6 +150,46 @@ const ROUTES = {
     { lat: -23.5185, lng: -46.6870, label: "Marginal Pinheiros (end)" },
   ],
 
+  // === MOUNTAIN ROUTES ===
+
+  // Rio de Janeiro → Petropolis → Teresopolis (~150 km, mountain highway)
+  // BR-040 up Serra do Mar, then BR-495/RJ-130 through Serra Fluminense
+  serra: [
+    // Rio — start near BR-040 access (Triagem/Benfica area)
+    { lat: -22.8870, lng: -43.2437, label: "Rio — Triagem", speed: 40 },
+    { lat: -22.8716, lng: -43.2522, speed: 60 },
+    // BR-040 highway heading north
+    { lat: -22.8430, lng: -43.2617, label: "BR-040 Norte", speed: 80 },
+    { lat: -22.8030, lng: -43.2735, speed: 90 },
+    { lat: -22.7620, lng: -43.2760, speed: 90 },
+    { lat: -22.7190, lng: -43.2720, label: "Dutra junction", speed: 90 },
+    // Washington Luis (BR-040 toward Serra)
+    { lat: -22.6780, lng: -43.2590, speed: 80 },
+    { lat: -22.6380, lng: -43.2410, label: "Xerem", speed: 70 },
+    // Serra do Mar — steep mountain climb with hairpins
+    { lat: -22.5960, lng: -43.2250, label: "Subida da Serra", speed: 50 },
+    { lat: -22.5720, lng: -43.2140, speed: 40 },
+    { lat: -22.5530, lng: -43.2050, label: "Curvas da Serra", speed: 35 },
+    { lat: -22.5380, lng: -43.1960, speed: 40 },
+    { lat: -22.5260, lng: -43.1870, label: "Alto da Serra", speed: 50 },
+    // Petropolis
+    { lat: -22.5170, lng: -43.1830, label: "Quitandinha", speed: 50 },
+    { lat: -22.5100, lng: -43.1790, label: "Petropolis Centro", speed: 30 },
+    // Petropolis → Correas → Itaipava via BR-495
+    { lat: -22.4950, lng: -43.1550, label: "Correas", speed: 50 },
+    { lat: -22.4690, lng: -43.1310, label: "Itaipava", speed: 55 },
+    // Mountain road — Pedro do Rio
+    { lat: -22.4390, lng: -43.0980, label: "Pedro do Rio", speed: 60 },
+    { lat: -22.4210, lng: -43.0670, speed: 55 },
+    // Serra Fluminense toward Teresopolis
+    { lat: -22.4100, lng: -43.0400, label: "Serra Fluminense", speed: 55 },
+    { lat: -22.4050, lng: -43.0100, speed: 55 },
+    { lat: -22.4020, lng: -42.9800, speed: 60 },
+    // Teresopolis approach and city
+    { lat: -22.4100, lng: -42.9650, label: "Varzea", speed: 50 },
+    { lat: -22.4120, lng: -42.9630, label: "Teresopolis Centro", speed: 30 },
+  ],
+
   // === QUICK TEST ===
 
   test: [
@@ -182,14 +222,18 @@ Usage:
 
 Options:
   --route <name>    Route to simulate (default: paulista)
-  --speed <km/h>    Driving speed (default: 40)
+  --speed <km/h>    Driving speed (default: 40). Ignored if route has per-waypoint speeds.
+  --timescale <n>   Run n times faster without changing speed data (default: 1)
   --loop            Restart route when it ends
   --no-roads        Skip OSRM, use straight lines between waypoints
   --host <host>     Chrome CDP host (default: localhost)
   --port <port>     Chrome CDP port (default: 9222)
   --help            Show this help
 
-Routes (Rio de Janeiro):
+Routes (Mountains — Rio de Janeiro):
+  serra             Rio → Petropolis → Teresopolis (~150 km, mountain highway)
+
+Routes (Rio de Janeiro — Coast):
   rio               Copacabana → Ipanema → Leblon → Barra (~18 km)
   rio-centro        Praca Maua → Lapa → Flamengo → Botafogo (~8 km)
   rio-barra         Barra → Recreio → Prainha → Grumari (~20 km)
@@ -199,16 +243,22 @@ Routes (Sao Paulo):
   pinheiros         Loop around Pinheiros neighborhood (~6 km)
   fuel-stations     Marginal Pinheiros, passes gas stations (~8 km)
   test              Se Cathedral to Republica (~0.5 km, quick test)
+
+Speed tips:
+  --timescale 20    150 km serra route finishes in ~5 min with realistic speeds
+  --timescale 10    Moderate speedup, good for watching the map move
 `);
   process.exit(0);
 }
 
 const speedKmh = parseFloat(getArg("speed", "40"));
+const timescale = parseFloat(getArg("timescale", "1"));
 const routeName = getArg("route", "paulista");
 const cdpHost = getArg("host", "localhost");
 const cdpPort = getArg("port", "9222");
 const loop = args.includes("--loop");
 const noRoads = args.includes("--no-roads");
+const hasPerWaypointSpeeds = () => route.some((w) => w.speed != null);
 
 const route = ROUTES[routeName];
 if (!route) {
@@ -236,7 +286,45 @@ async function fetchRoadGeometry(waypoints) {
 
   // Extract coordinates from GeoJSON LineString [lng, lat] → { lat, lng }
   const geometry = data.routes[0].geometry.coordinates;
-  return geometry.map(([lng, lat]) => ({ lat, lng }));
+  const roadPoints = geometry.map(([lng, lat]) => ({ lat, lng }));
+
+  // Carry per-waypoint speed to OSRM road points by nearest-waypoint assignment
+  if (waypoints.some((w) => w.speed != null)) {
+    for (const rp of roadPoints) {
+      let minDist = Infinity;
+      let bestSpeed = undefined;
+      for (const wp of waypoints) {
+        if (wp.speed == null) continue;
+        const d =
+          (rp.lat - wp.lat) ** 2 + (rp.lng - wp.lng) ** 2; // squared, fine for nearest
+        if (d < minDist) {
+          minDist = d;
+          bestSpeed = wp.speed;
+        }
+      }
+      rp.speed = bestSpeed;
+    }
+    // Smooth speeds along the road to avoid abrupt jumps
+    for (let i = 1; i < roadPoints.length - 1; i++) {
+      const prev = roadPoints[i - 1].speed || roadPoints[i].speed;
+      const next = roadPoints[i + 1].speed || roadPoints[i].speed;
+      roadPoints[i].speed = (prev + roadPoints[i].speed + next) / 3;
+    }
+  }
+
+  // Carry labels from nearest original waypoint (within ~200m)
+  for (const wp of waypoints) {
+    if (!wp.label) continue;
+    let minDist = Infinity;
+    let bestIdx = 0;
+    for (let i = 0; i < roadPoints.length; i++) {
+      const d = (roadPoints[i].lat - wp.lat) ** 2 + (roadPoints[i].lng - wp.lng) ** 2;
+      if (d < minDist) { minDist = d; bestIdx = i; }
+    }
+    roadPoints[bestIdx].label = wp.label;
+  }
+
+  return roadPoints;
 }
 
 // ---------------------------------------------------------------------------
@@ -276,11 +364,19 @@ function interpolateRoute(waypoints, intervalMeters = 50) {
     const steps = Math.max(1, Math.floor(dist / intervalMeters));
     for (let s = 0; s < steps; s++) {
       const t = s / steps;
+      // Interpolate speed between waypoints if available
+      const speedA = a.speed;
+      const speedB = b.speed;
+      const interpSpeed =
+        speedA != null && speedB != null
+          ? speedA + (speedB - speedA) * t
+          : speedA ?? speedB ?? undefined;
       points.push({
         lat: a.lat + (b.lat - a.lat) * t,
         lng: a.lng + (b.lng - a.lng) * t,
         heading: bearing(a, b),
         label: s === 0 ? a.label : undefined,
+        speed: interpSpeed,
       });
     }
   }
@@ -291,6 +387,7 @@ function interpolateRoute(waypoints, intervalMeters = 50) {
     lng: last.lng,
     heading: bearing(prev, last),
     label: last.label,
+    speed: last.speed ?? prev.speed ?? undefined,
   });
   return points;
 }
@@ -308,10 +405,9 @@ async function getWebSocketUrl() {
 }
 
 async function run() {
-  const speedMs = (speedKmh * 1000) / 3600;
+  const usePerPointSpeed = hasPerWaypointSpeeds();
+  const defaultSpeedMs = (speedKmh * 1000) / 3600;
   const intervalMeters = 20;
-  const intervalSeconds = intervalMeters / speedMs;
-  const intervalMs = intervalSeconds * 1000;
 
   // Fetch real road geometry from OSRM, or fall back to straight lines
   let roadPoints = route;
@@ -333,18 +429,32 @@ async function run() {
     return sum + haversineDistance(points[i - 1], p);
   }, 0);
 
+  // Calculate estimated real-world duration
+  let estRealSeconds = 0;
+  for (let i = 1; i < points.length; i++) {
+    const segDist = haversineDistance(points[i - 1], points[i]);
+    const segSpeedMs = usePerPointSpeed && points[i].speed != null
+      ? (points[i].speed * 1000) / 3600
+      : defaultSpeedMs;
+    estRealSeconds += segDist / segSpeedMs;
+  }
+  const estSimSeconds = estRealSeconds / timescale;
+
+  const pointsWithSpeed = points.filter((p) => p.speed != null);
+  const speedLabel = usePerPointSpeed && pointsWithSpeed.length > 0
+    ? `${Math.round(Math.min(...pointsWithSpeed.map(p => p.speed)))}–${Math.round(Math.max(...pointsWithSpeed.map(p => p.speed)))} km/h (per waypoint)`
+    : `${speedKmh} km/h`;
+
   console.log(`\n🚗 Kopilot Drive Simulator`);
   console.log(`─────────────────────────────────`);
-  console.log(`   Route:    ${routeName} (${route.length} waypoints)`);
-  console.log(`   Road:     ${noRoads ? "straight lines" : "OSRM street geometry"}`);
-  console.log(`   Points:   ${points.length} interpolated positions`);
-  console.log(`   Distance: ${(totalDist / 1000).toFixed(1)} km`);
-  console.log(`   Speed:    ${speedKmh} km/h`);
-  console.log(
-    `   Duration: ~${Math.round(totalDist / speedMs / 60)} min`
-  );
-  console.log(`   Interval: ${intervalMs.toFixed(0)}ms between updates`);
-  console.log(`   Loop:     ${loop ? "yes" : "no (stops at end)"}`);
+  console.log(`   Route:     ${routeName} (${route.length} waypoints)`);
+  console.log(`   Road:      ${noRoads ? "straight lines" : "OSRM street geometry"}`);
+  console.log(`   Points:    ${points.length} interpolated positions`);
+  console.log(`   Distance:  ${(totalDist / 1000).toFixed(1)} km`);
+  console.log(`   Speed:     ${speedLabel}`);
+  console.log(`   Timescale: ${timescale}x${timescale > 1 ? ` (speed DATA preserved, simulation ${timescale}x faster)` : ""}`);
+  console.log(`   Real time: ~${Math.round(estRealSeconds / 60)} min → sim time: ~${Math.round(estSimSeconds / 60)} min`);
+  console.log(`   Loop:      ${loop ? "yes" : "no (stops at end)"}`);
   console.log(`─────────────────────────────────\n`);
 
   let wsUrl;
@@ -451,7 +561,9 @@ async function run() {
 
     const tick = () => {
       const point = points[i];
-      const currentSpeedMs = speedMs;
+      // Per-point speed (km/h → m/s) or fallback to global --speed
+      const pointSpeedKmh = usePerPointSpeed && point.speed != null ? point.speed : speedKmh;
+      const currentSpeedMs = (pointSpeedKmh * 1000) / 3600;
       const headingDeg = point.heading || 0;
 
       // Update our global with full position data including speed + heading
@@ -474,9 +586,8 @@ async function run() {
 
       const pct = ((i / (points.length - 1)) * 100).toFixed(0);
       const label = point.label ? ` — ${point.label}` : "";
-      const speedDisplay = (currentSpeedMs * 3.6).toFixed(0);
       process.stdout.write(
-        `\r  📍 [${pct.padStart(3)}%] ${point.lat.toFixed(5)}, ${point.lng.toFixed(5)}  ${headingDeg.toFixed(0)}°  ${speedDisplay} km/h${label}   `
+        `\r  📍 [${pct.padStart(3)}%] ${point.lat.toFixed(5)}, ${point.lng.toFixed(5)}  ${headingDeg.toFixed(0)}°  ${pointSpeedKmh.toFixed(0)} km/h${label}   `
       );
 
       i++;
@@ -486,7 +597,6 @@ async function run() {
           console.log(`\n\n  🔄 Looping route...\n`);
         } else {
           console.log(`\n\n✅ Route complete!\n`);
-          // Set speed to 0 on completion
           send("Runtime.evaluate", {
             expression: `window.__geoSim = { ...window.__geoSim, speed: 0 }`,
           });
@@ -499,7 +609,9 @@ async function run() {
         }
       }
 
-      setTimeout(tick, intervalMs);
+      // Calculate interval for next segment based on point speed and timescale
+      const nextIntervalMs = (intervalMeters / currentSpeedMs) * 1000 / timescale;
+      setTimeout(tick, nextIntervalMs);
     };
 
     tick();
