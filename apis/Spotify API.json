@@ -1,0 +1,326 @@
+{
+  "info": {
+    "name": "Spotify API",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Access Token Authorization_Code",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "disabled": false,
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Basic MDMzNTdhYmU2MDc4NDcwMzk2MzhlMWFiMzhkMDY3YmI6N2QxNDc5YjY4M2U2NDY4YjgzMDNlZTAzZTI3ZTY3NmU=",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "https://accounts.spotify.com/api/token",
+          "protocol": "https",
+          "host": [
+            "accounts",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "api",
+            "token"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "authorization_code",
+              "disabled": false,
+              "type": "default"
+            },
+            {
+              "key": "code",
+              "value": "AQDjAsG74TeRbKAMKddfoZxOIOVhDBwyiIeu3DlipcO8K-rUgiIMBnKU2DfUKkriQUEJFOvsnXp7bNHZZQI7ENUS2WN2XkPp-sdTsMtlMKJIoGDjhwVbATJ8WF2jjc2OyLTpmHPmpes3bPo7ZoVtdRFQLD5YHHDUKwEkQ9lkwUhXnFxOMCIozIwswhx2tega31dbZB18xrLIoor-jLWHVzZM3o4TKGg5gzL3hVgRqsZvPbE",
+              "disabled": false,
+              "type": "default"
+            },
+            {
+              "key": "redirect_uri",
+              "value": "http://127.0.0.1:8888/callback",
+              "disabled": false,
+              "type": "default"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Access Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "https://accounts.spotify.com/api/token",
+          "protocol": "https",
+          "host": [
+            "accounts",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "api",
+            "token"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "disabled": false,
+              "type": "default"
+            },
+            {
+              "key": "client_id",
+              "value": "03357abe607847039638e1ab38d067bb",
+              "disabled": false,
+              "type": "default"
+            },
+            {
+              "key": "client_secret",
+              "value": "7d1479b683e6468b8303ee03e27e676e",
+              "disabled": false,
+              "type": "default"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add Items to Playlist",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "BQAv7varoa5HJqp7cughMoazzK5HRiP8iEJ0GNjaCdTb8QMMx_EXI00jzuFzufQ4a8Ft4_jAhxyM0JekeA1YY0-yUsnh6tM8xDyvhUPndbrXqQNE_5JWeKPwuii-v73EVaQBvhf49LhgGCnm7ayqEVpXl9pbErSXe4TwEHegOC9NB1EdH3Nsxs2GYbLX5P_BxGfeNGCIfujW466_E0yXIlWhXXLFYn2eohMoyNP2n1eU1N8rVUga9Knvt5bjZjW3a-Zlwo1O0ncT0wKs5axeH3LB8chvog",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "https://api.spotify.com/v1/playlists/3xjofYAYLCeDIhCI1B4GwW/tracks?uris=spotify:track:6WFriY7v6HdolEmcOOY5bO",
+          "protocol": "https",
+          "host": [
+            "api",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "playlists",
+            "3xjofYAYLCeDIhCI1B4GwW",
+            "tracks"
+          ],
+          "query": [
+            {
+              "key": "uris",
+              "value": "spotify:track:6WFriY7v6HdolEmcOOY5bO"
+            }
+          ],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "https://accounts.spotify.com/authorize?client_id=715e4706154641d7822e0ed8d96fe46a&response_type=code&redirect_uri=http://localhost:8888&scope=playlist-modify-public playlist-modify-private\n\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Get Artist",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "BQAqPTlh9lSe5ao15rz13TgC0v2p8QIY8X2K47K3w_OsSocxO1A9G34cWQ0xpIuN-2PA9oj3xHlgeAwUfQXQIkScBaa7AwEHzOHcBHSAvlXVzSgXwNhooaDyMHzKW1vclIDjj2iHsnM",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "https://api.spotify.com/v1/artists/25MkkfEousyfp2eyh38FUl",
+          "protocol": "https",
+          "host": [
+            "api",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "artists",
+            "25MkkfEousyfp2eyh38FUl"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get Current User´s Profile",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "",
+        "url": {
+          "raw": "https://api.spotify.com/v1/users/1173332833",
+          "protocol": "https",
+          "host": [
+            "api",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "users",
+            "1173332833"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get User's Top Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "https://api.spotify.com/v1/me/top/tracks?type=tracks&time_range=short_term&limit=3",
+          "protocol": "https",
+          "host": [
+            "api",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "me",
+            "top",
+            "tracks"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "tracks"
+            },
+            {
+              "key": "time_range",
+              "value": "short_term"
+            },
+            {
+              "key": "limit",
+              "value": "3"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Search",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "https://api.spotify.com/v1/search?q=lucio battisti&type=artist",
+          "protocol": "https",
+          "host": [
+            "api",
+            "spotify",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "lucio battisti"
+            },
+            {
+              "key": "type",
+              "value": "artist"
+            }
+          ],
+          "variable": []
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": []
+        }
+      }
+    }
+  ],
+  "variable": []
+}
