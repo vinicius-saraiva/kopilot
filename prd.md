@@ -10,7 +10,7 @@
 
 Kopilot is a mobile app that helps non-car-people maintain their vehicles. It transforms forgotten maintenance and regulatory obligations into trackable reminders with a clear, motivating interface.
 
-The app tracks 13+ items out of the box (regulatory + maintenance, varying by country), sends proactive reminders, and logs a complete vehicle history over time. Country profiles for Brazil, USA, and Italy define which items are shown. It includes ride tracking with GPS, fuel logging with spending insights, maintenance visit logging with invoice photos, a unified spending history, shortcuts, offline support, and full i18n (PT-BR, EN, IT). Future versions will add an AI mechanic assistant and hardware integration.
+The app tracks 13+ items out of the box (regulatory + maintenance, varying by country), sends proactive reminders, and logs a complete vehicle history over time. Country profiles for Brazil, USA, and Italy define which items are shown. It includes ride tracking with GPS, fuel logging with spending insights, maintenance visit logging with invoice photos, a unified spending history, shortcuts, offline support, full i18n (PT-BR, EN, IT), and product analytics with PostHog (event tracking, session replay, A/B experiments). Future versions will add an AI mechanic assistant and hardware integration.
 
 ---
 
@@ -64,6 +64,7 @@ Each feature is documented in detail in its own file under `/epics`.
 | **Offline & PWA** | Offline data persistence (localStorage), installable PWA, auto-update checking | — |
 | **Privacy Policy** | Legal privacy disclosure covering all collected data | [epics/privacy-policy/epic.md](epics/privacy-policy/epic.md) |
 | **Landing Page** | Marketing page with hero, features, CTA | [epics/landing-page/epic.md](epics/landing-page/epic.md) |
+| **Analytics** | PostHog integration — user identification, custom event tracking, session replay, A/B experiments | [epics/analytics/epic.md](epics/analytics/epic.md) |
 
 ### Planned
 

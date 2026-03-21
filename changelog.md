@@ -4,6 +4,32 @@ All notable changes to Kopilot are documented here. Organized by date, newest fi
 
 ---
 
+## 2026-03-21
+
+### Analytics — PostHog Integration (Stories 1–5)
+- Added PostHog HTML snippet in `<head>` with session replay enabled
+- Created `src/lib/posthog.ts` helper utility (`identify`, `reset`, `capture`)
+- User identification on login/signup with email
+- `posthog.reset()` on logout
+- Auth events: `signup_completed`, `login_completed`, `password_reset_requested`
+- Onboarding events: `onboarding_started`, `onboarding_step_completed`, `onboarding_completed`
+- Fuel events: `fuel_entry_added`, `fuel_entry_edited`, `fuel_entry_deleted`, `fuel_station_searched`, `fuel_stations_map_viewed`
+- Rides events: `ride_started`, `ride_completed`, `ride_deleted`
+- Checklist events: `checklist_item_completed`, `checklist_item_viewed`
+- Maintenance events: `visit_added`, `visit_deleted`
+- History, Shortcuts, Settings events: `history_viewed`, `shortcut_tapped`, `language_changed`, `currency_changed`, `vehicle_edited`, `mileage_updated`
+- Dashboard experiment events: `dashboard_viewed`, `checklist_widget_tapped`
+- A/B test on checklist widget title via feature flag `checklist-section-naming` (control: "Checklist", test: "Car Health Score")
+
+---
+
+## 2026-03-16
+
+### Fuel — Stations Map
+- Fixed Mapbox gas station search authentication (search token passed with auth headers)
+
+---
+
 ## 2026-03-13
 
 ### Onboarding — Full Flow (Stories 1–7)
