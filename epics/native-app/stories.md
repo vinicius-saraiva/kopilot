@@ -10,6 +10,8 @@ Operational stories for shipping Kopilot to the Play Store. Phase 1 stories are 
 
 ### Story 1 — Create Google Play Developer account (critical path)
 
+**Status (2026-04-19):** 🟡 Account created and $25 fee paid (receipt to `v.saraiva.andrade@gmail.com`), now in Google's identity-verification queue. **Personal / Individual account type** (not Organization — avoids the Brazil D-U-N-S requirement that would have added weeks). Login email: `v.saraiva.andrade@gmail.com` (chosen over `kopilotautos@gmail.com` because account must cover multiple future apps, and over `v@vinicius.pm` because Gmail permanence is more important than branding for the login — the developer display name and public contact email can still be `vinicius.pm`-branded).
+
 **Goal:** Have a verified Google Play Console account ready before Phase 1 Day 5 so the first AAB upload isn't blocked.
 
 **Steps:**
@@ -51,6 +53,8 @@ Operational stories for shipping Kopilot to the Play Store. Phase 1 stories are 
 ---
 
 ### Story 3 — Bootstrap Capacitor with Android platform
+
+**Status (2026-04-19):** ✅ Done. Capacitor 7 + `@capacitor/android` installed, `capacitor.config.ts` configured (appId `autos.kopilot.app`, webDir `dist`). Android project scaffolded, debug APK built, installed on a Samsung Galaxy S10 via wireless ADB, and confirmed loading the existing web UI inside the native WebView. `NATIVE.md` documents the build flow. **Surprise:** Capacitor 7 requires JDK 21 (not JDK 17) — `brew install openjdk@21`, and export `JAVA_HOME` for CLI Gradle builds (Android Studio picks it up automatically via its bundled JBR).
 
 **Goal:** Get the existing web app running inside a native Android shell locally, end to end.
 
@@ -99,6 +103,23 @@ Operational stories for shipping Kopilot to the Play Store. Phase 1 stories are 
 ---
 
 ### Story 5 — Background GPS integration for rides
+
+**Status (2026-04-19):** 🟡 Foreground half done; background half pending.
+
+Today's unplanned work: on first install, the gas-station selector in AddFuel silently failed to request GPS or show nearby stations. Root cause: Capacitor's WebView doesn't forward `navigator.geolocation.*` to the native permission flow. The fix covered the foreground case across three call sites in one pass:
+
+- Installed `@capacitor/geolocation` (7.x)
+- Added `ACCESS_FINE_LOCATION` + `ACCESS_COARSE_LOCATION` to `AndroidManifest.xml` (foreground only, not background yet)
+- Wrote `src/lib/location.ts` — native-aware `getCurrentPosition()` / `watchPosition()` / `isGeolocationSupported()` with graceful web fallback
+- Swapped `PlaceSearchInput`, `StationsMap`, `useGPSTracking` to the wrapper; web PWA behaviour is unchanged
+
+**Still pending (the actual hard problem of this story):** rides continuing to record when the phone is locked / the app is in the background. Needs:
+
+- `@capacitor-community/background-geolocation` (separate plugin from `@capacitor/geolocation`)
+- `ACCESS_BACKGROUND_LOCATION`, `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_LOCATION`, `POST_NOTIFICATIONS` in the manifest
+- A persistent foreground-service notification shown while a ride is active (Android 10+ mandates this for background location)
+- Permission UX: prompt for "While using" first, then at ride-start prompt for "Allow all the time" with an explanation
+- OEM battery-optimization help doc for Xiaomi/OPPO/Huawei/Samsung variants that kill foreground services aggressively
 
 **Goal:** Rides continue recording GPS points when the app is backgrounded, screen is off, or the phone is in a pocket.
 

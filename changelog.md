@@ -4,6 +4,22 @@ All notable changes to Kopilot are documented here. Organized by date, newest fi
 
 ---
 
+## 2026-04-19
+
+### Native App — Phase 1 kick-off (Native App epic, Stories 1, 3, partial 5)
+
+- **Google Play Developer account created (Story 1):** registered as a Personal / Individual account (avoiding Brazil's D-U-N-S requirement that comes with the Organization path), $25 fee paid, submitted to Google's identity-verification queue. Login email: `v.saraiva.andrade@gmail.com` (Gmail permanence > brand on the login; display name and public contact email can still carry `vinicius.pm` branding). Now waiting 1–3 business days for verification.
+- **Capacitor Android shell live on-device (Story 3):** installed `@capacitor/core`, `@capacitor/cli`, `@capacitor/android`; configured `capacitor.config.ts` with app ID `autos.kopilot.app` (reverse-DNS convention, iOS-compatible for Phase 4). Debug APK built via CLI Gradle, installed on a Samsung Galaxy S10 via wireless ADB, app loads the existing PWA UI inside the native WebView. `NATIVE.md` documents the build flow.
+- **Foreground geolocation rewired for native (half of Story 5):** discovered that Capacitor's WebView silently fails `navigator.geolocation.*` calls — the gas-station selector in AddFuel couldn't prompt for GPS or load nearby stations on first install. Fix: installed `@capacitor/geolocation`, added `ACCESS_FINE_LOCATION` + `ACCESS_COARSE_LOCATION` to the Android manifest, added `src/lib/location.ts` with a native-aware `getCurrentPosition`/`watchPosition` wrapper, and swapped the three call sites (PlaceSearchInput, StationsMap, useGPSTracking) to use it. Web PWA behaviour unchanged. Background GPS for locked-phone ride tracking is still pending as Story 5 proper.
+- **Google Sign-In button hidden:** Welcome, Login, and Signup pages no longer show the Google button (with TODO comments pointing at the Lovable-Migration Story 16 deferral). Kopilot-on-native doesn't ship a dead flow.
+
+### Notable gotchas surfaced
+
+- Capacitor 7 requires **JDK 21** (not JDK 17). First CLI Gradle build failed with `invalid source release: 21`. Fixed via `brew install openjdk@21` + `JAVA_HOME` export for CLI builds; Android Studio picks its bundled JBR automatically. Documented in `NATIVE.md`.
+- Wireless ADB pairing codes and ports **rotate every ~30 seconds** while the pair-code dialog is open. Several failed attempts before the second-by-second timing became clear.
+
+---
+
 ## 2026-04-18
 
 ### Infrastructure — App cutover to `app.kopilot.autos` (Lovable Migration, Stories 11 + 14 + 16 + partial 15)

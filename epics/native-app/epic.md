@@ -1,9 +1,47 @@
 # Native App (Android → iOS)
 
 **Epic:** Ship Kopilot as a native mobile app on Google Play (first), then App Store, without abandoning the web PWA.
-**Status:** Planned — scoping complete, execution starts 2026-04-19
+**Status:** In Progress — Phase 1 kicked off 2026-04-19. Capacitor Android shell running on-device; foreground geolocation wired end-to-end; Play Developer account in identity-review; remaining Phase 1 work: privacy policy, icon/splash/listing, app signing, compliance forms, background GPS.
 **Priority:** Now
 **Related:** every feature with mobile-native constraints — rides (background GPS), reminders (push), maintenance (camera), future OBD-II analytics
+
+---
+
+## Progress Snapshot
+
+**As of 2026-04-19** — Phase 1 Day 1.
+
+### Done
+
+- ✅ **Story 3 — Capacitor bootstrap + Android platform** — `@capacitor/core`, `@capacitor/cli`, `@capacitor/android` installed; `appId: autos.kopilot.app`, `appName: Kopilot`, `webDir: dist`. Android Gradle project scaffolded and checked in. Debug APK built and installed on a Samsung Galaxy S10 via wireless ADB; app loads the PWA UI inside the native WebView. `NATIVE.md` documents the build flow and the JDK 21 requirement surfaced during the first build.
+- ✅ **Hide Google Sign-In button until OAuth is re-enabled** — removed from Welcome/Login/Signup pages with TODO comments pointing at the Lovable-Migration Story 16 deferral, so the native app doesn't expose a dead flow.
+- ✅ **Foreground geolocation wrapper (half of Story 5)** — installed `@capacitor/geolocation`, added `ACCESS_FINE_LOCATION` + `ACCESS_COARSE_LOCATION` to the Android manifest, added `src/lib/location.ts` with a native-aware `getCurrentPosition`/`watchPosition`/`isGeolocationSupported`. Fixed the gas-station selector in AddFuel, the stations map, and the rides GPS tracker in one pass. Web PWA behaviour unchanged.
+
+### In progress
+
+- 🟡 **Story 1 — Google Play Developer account** — paid and submitted to Google's identity-verification queue on 2026-04-19. Selected **Personal / Individual** (not Organization — avoids the Brazil D-U-N-S requirement that would add weeks). Login email `v.saraiva.andrade@gmail.com`; display name and public contact can still be `vinicius.pm`-branded. Waiting 1–3 business days for review.
+
+### Blocks nothing engineering-wise
+
+Everything downstream of Story 1 can proceed in parallel while Google verifies: Story 2 (privacy URL), Story 4 (viewport/safe-area), Story 6 (icon/splash/listing), and the *background* half of Story 5 (ride tracking while the phone is locked).
+
+### Outstanding (not yet started)
+
+| Story | Note |
+|---|---|
+| 2 — Privacy policy URL | Target: `app.kopilot.autos/privacy` (apex `kopilot.autos/privacy` gated on the landing-page migration) |
+| 4 — Viewport / safe-area fixes | Pending first on-device visual pass |
+| 5 (background half) — Locked-phone ride tracking | Needs `@capacitor-community/background-geolocation`, foreground-service notification, `ACCESS_BACKGROUND_LOCATION` + `FOREGROUND_SERVICE_LOCATION` permissions |
+| 6 — App icon, splash, Play Store listing assets | Design-heavy — adaptive icon foreground/background, feature graphic, screenshots in en/pt-BR/it |
+| 7 — First AAB upload to internal testing | Gated on Story 1 clearing verification |
+| 8 — Data Safety + background-location declarations | Gated on Story 6 (screenshots) + Story 2 (privacy URL) |
+| 9 — Internal-testing smoke loop | Gated on Story 7 |
+
+### Surprises + learnings from 2026-04-19
+
+- **Capacitor 7 requires JDK 21**, not JDK 17 (first build failed with `invalid source release: 21`). Documented in `NATIVE.md` so it doesn't bite anyone else. Android Studio's bundled JBR works out of the box; only CLI Gradle needs `JAVA_HOME` set.
+- **`navigator.geolocation` doesn't work in Capacitor's WebView** — must use `@capacitor/geolocation`. Discovered via the AddFuel gas-station flow silently failing on a fresh install. Foreground fix landed; background still pending as Story 5 proper.
+- **Wireless ADB pair/connect ports and pairing codes rotate every ~30s** while the phone's dialog is open. Several failed attempts before realizing the codes were expiring mid-exchange.
 
 ---
 
