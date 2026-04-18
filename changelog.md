@@ -4,6 +4,44 @@ All notable changes to Kopilot are documented here. Organized by date, newest fi
 
 ---
 
+## 2026-04-18
+
+### Infrastructure — App cutover to `app.kopilot.autos` (Lovable Migration, Stories 11 + 14 + 16 + partial 15)
+
+- **App DNS cutover (Story 11):** `app.kopilot.autos` is live on Vercel with auto-issued SSL; GoDaddy `a app` record updated from Lovable's `185.158.133.1` to Vercel's `76.76.21.21`. The apex `kopilot.autos` and `www` intentionally left on the old Lovable IP — they serve the landing page, which will migrate separately in Story 13.
+- **Supabase re-migration (Story 16):** moved the backend off the shared `wulnnwccvnevnrshvfsj` project (discovered to have Kopilot tables mixed with personal-site tables like `newsletter_subscribers`) to a new dedicated project `adrojzkkcqidfcygaxdk` under `kopilotautos@gmail.com`. 19 migrations applied, 3 users recreated via admin API with original UUIDs, 7 Kopilot tables (~90 rows) copied via `pg_dump --data-only`, 3 storage objects copied via Storage API, all 4 edge functions deployed, 4 secrets set (`MAPBOX_ACCESS_TOKEN`, `RESEND_KEY`, `SEND_EMAIL_HOOK_SECRET`, `SITE_URL`). `.env` + `supabase/config.toml` now point at the new project; zero references to old project in the deployed bundle.
+- **Resend domain (Story 14):** verified `mail.kopilot.autos` on a fresh Resend account owned by `kopilotautos@gmail.com`; `FROM_ADDRESS` flipped from the temporary `noreply@newsletter.vinicius.pm` to `noreply@mail.kopilot.autos`. End-to-end confirmed: `/auth/v1/recover` returns HTTP 200, password-recovery email delivered.
+- **Account consolidation (Story 15, partial):** PostHog migrated to a new Kopilot-only EU project (key swapped in `index.html`, `person_profiles: 'identified_only'` opt-in). Supabase ownership resolved by the re-migration above. Mapbox still blocked (account creation rejected by anti-abuse).
+- **SPA fallback:** added `vercel.json` catch-all rewrite so `/reset-password` and other client-side routes stop 404'ing on Vercel.
+- **Branded 404 page:** replaced the generic `<div>` 404 with a Kopilot-themed page (dark header, blaze compass icon, "You've gone off the map" in en/pt-BR/it).
+- **Recovery-link robustness:** `ResetPassword` now detects `error_code`/`error` in the URL hash and shows a branded expired-link state with a "Request a new link" CTA, instead of silently rendering a dead form.
+- **Hook secret decoding:** `auth-email-hook` signature verification now normalizes URL-safe base64 and missing padding before `atob`, so future hook-secret rotations accept any Supabase-generated format.
+- **GoDaddy cleanup:** removed leftover Lovable `ns mail ns3/ns4.lovable.cloud` delegation and stale `_lovable*` TXT records.
+
+### Known gaps after today
+- **Google OAuth** not yet configured on the new Supabase project — real-user sign-in is non-functional until this is done (deliberate deferral; no external users yet).
+- **Landing page** (Story 13) still runs on Lovable Cloud (`huzteabjbpqlbjkgghxz`), `kopilot.autos` apex DNS still points at the old Lovable IP.
+- **Old Supabase project** `wulnnwccvnevnrshvfsj` kept alive as rollback — final decommission is Story 12.
+
+---
+
+## 2026-04-11
+
+### Infrastructure — Initial Lovable exit (Lovable Migration, Stories 1–10)
+
+- Provisioned a new self-owned Supabase project and applied all 18 migrations from the repo (schema, RLS, buckets, seeds).
+- Re-created the 3 retained users (Vinicius, Rafa, Daniel) via Supabase admin API preserving their original UUIDs so every downstream FK survives.
+- Imported 7 table CSVs from `database-backup/tables/` filtered to retained users, in FK-safe order. Uploaded invoice photos to the new bucket preserving `<vehicle_id>/<filename>` paths.
+- Rewrote `auth-email-hook` for Resend + Standard Webhooks signature verification (dropped `@lovable.dev/email-js` and `@lovable.dev/webhooks-js`). Deployed all 4 edge functions to the new project and set `MAPBOX_ACCESS_TOKEN` + `SEND_EMAIL_HOOK_SECRET`.
+- Swapped `@lovable.dev/cloud-auth-js` for `@supabase/supabase-js` (only 2 files touched). Removed `lovable-tagger` from `vite.config.ts` and `package.json`. Deleted stale `bun.lock`/`bun.lockb` (repo uses npm).
+- Scrubbed every Lovable reference from code, `index.html`, and `README.md`.
+- Created a Vercel project auto-deploying from `vinicius-saraiva/kopilot-autos`; initial deploy reachable at `kopilot-autos.vercel.app`.
+- Discovered and fixed a duplicate `seed_default_tracked_items` trigger (migration `20260411040000_drop_duplicate_seed_trigger.sql`).
+
+Net effect after 2026-04-11: the app was functionally Lovable-free on the Vercel preview URL, but `app.kopilot.autos` was still pointing at the old Lovable IP — that DNS cutover was deferred until 2026-04-18.
+
+---
+
 ## 2026-03-21
 
 ### Analytics — PostHog Integration (Stories 1–5)
