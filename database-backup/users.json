@@ -1,0 +1,63 @@
+{
+    "id": "b1894b80-1ee6-4f7e-acbc-044812337a5f",
+    "display_name": null,
+    "email_data": {
+      "email": "v.saraiva.andrade@gmail.com",
+      "email_verified": true,
+      "confirmation_sent_at": null,
+      "confirmed_at": "2026-01-27T01:37:00.856879Z"
+    },
+    "phone_data": null,
+    "created_at": "2026-01-27T01:37:00.814806Z",
+    "updated_at": "2026-04-04T19:08:48.439844Z",
+    "last_sign_in_at": "2026-04-03T02:10:22.888792Z",
+    "is_sso_user": false,
+    "is_anonymous": false,
+    "deleted_at": null,
+    "providers": [
+      "email",
+      "google"
+    ]
+  }
+
+  {
+    "id": "b936776a-5c72-415c-896b-a6b2d01a9b49",
+    "display_name": null,
+    "email_data": {
+      "email": "bressan.rafa@gmail.com",
+      "email_verified": true,
+      "confirmation_sent_at": null,
+      "confirmed_at": "2026-02-19T14:50:50.448719Z"
+    },
+    "phone_data": null,
+    "created_at": "2026-02-19T14:50:50.390748Z",
+    "updated_at": "2026-02-19T16:58:29.131452Z",
+    "last_sign_in_at": "2026-02-19T14:50:50.460566Z",
+    "is_sso_user": false,
+    "is_anonymous": false,
+    "deleted_at": null,
+    "providers": [
+      "google"
+    ]
+  }
+
+  {
+    "id": "7144a9e2-7d6f-4ca2-a25f-b719a29c6f7d",
+    "display_name": null,
+    "email_data": {
+      "email": "danielmseraphim@gmail.com",
+      "email_verified": true,
+      "confirmation_sent_at": null,
+      "confirmed_at": "2026-02-08T22:02:25.511315Z"
+    },
+    "phone_data": null,
+    "created_at": "2026-02-08T22:02:25.496624Z",
+    "updated_at": "2026-02-08T22:02:25.533091Z",
+    "last_sign_in_at": "2026-02-08T22:02:25.518815Z",
+    "is_sso_user": false,
+    "is_anonymous": false,
+    "deleted_at": null,
+    "providers": [
+      "google"
+    ]
+  }
