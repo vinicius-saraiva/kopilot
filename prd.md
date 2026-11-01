@@ -1,7 +1,7 @@
 # Kopilot — Product Requirements Document
 
 **Tagline:** Own Your Drive.
-**Last Updated:** March 2026
+**Last Updated:** May 2026
 **Status:** Live
 
 ---
@@ -70,6 +70,8 @@ Each feature is documented in detail in its own file under `/epics`.
 
 | Feature | Description | Target | Spec |
 |---------|-------------|--------|------|
+| **Lovable Migration** | Move Kopilot off Lovable + Lovable Cloud to self-owned Supabase and independent hosting | Now | [epics/lovable-migration/epic.md](epics/lovable-migration/epic.md) |
+| **Native App** | Capacitor-based Android (then iOS) wrapper around the existing PWA — unlocks background GPS, push notifications, and store distribution | Now | [epics/native-app/epic.md](epics/native-app/epic.md) |
 | **Kopilot+** | Monthly subscription (R$15, Brazil only) with partner discounts — Stripe integration, dashboard promo card, info page | v1.x | [epics/kopilot-plus/epic.md](epics/kopilot-plus/epic.md) |
 | **Insurance** | Dedicated insurance section: contacts, shortcuts, policy PDF, payment tracking | v1.x | [epics/insurance/epic.md](epics/insurance/epic.md) |
 
@@ -122,4 +124,4 @@ Since this is initially a tool for personal use:
 
 ---
 
-*Kopilot PRD — March 2026*
+*Kopilot PRD — May 2026*
